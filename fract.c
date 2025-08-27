@@ -6,96 +6,65 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 17:22:06 by hermarti          #+#    #+#             */
-/*   Updated: 2025/08/22 19:17:33 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/08/26 18:28:54 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdlib.h>
 
-static int	**alloc_color(t_window *window)
-{
-	int	i;
-	int	**color;
-
-	i = 0;
-	color = malloc(window->width * sizeof(int *));
-	if (!color)
-		return (NULL);
-	while (i < window->width)
-	{
-		color[i] = malloc(window->height * sizeof(int));
-		if (!color[i])
-		{
-			while (i > 0)
-			{
-				free(color[i]);
-				i++;
-			}
-			free(color);
-			return (NULL);
-		}
-		i++;
-	}
-	return (color);
-}
-
-t_fract	*ft_init_fract(t_window *window)
+t_fract	*ft_init_fract(t_window *window, e_fract_type type, double px,
+		double py)
 {
 	t_fract	*fract;
 
 	fract = malloc(sizeof(t_fract));
 	if (!fract)
 		return (NULL);
-	fract->z = ft_init_complex(window->width, window->height);
-	fract->c = ft_init_complex(window->width, window->height);
-	fract->x = malloc(window->width * sizeof(int));
-	fract->y = malloc(window->height * sizeof(int));
 	fract->color = alloc_color(window);
-	if (!fract->z || !fract->c || !fract->x || !fract->y || !fract->color)
-	{
-		ft_detroy_fract(fract);
-		return (NULL);
-	}
+	if (!fract->color)
+		return (ft_detroy_fract(fract));
+	fract->width = window->width;
+	fract->height = window->height;
 	fract->zoom = 1.0;
-	fract->x_offeset = 0.0;
-	fract->y_offeset = 0.0;
-	fract->type = 0;
+	fract->x_offset = 0.0;
+	fract->y_offset = 0.0;
+	fract->type = type;
+	fract->pcx = 0;
+	fract->pcy = 0;
+	fract->px = px;
+	fract->py = py;
 	return (fract);
 }
 
-void	ft_detroy_fract(t_fract *fract)
+void	*ft_detroy_fract(t_fract *fract)
 {
-	if (fract->z)
-		ft_destroy_complex(fract->z);
-	if (fract->c)
-		ft_destroy_complex(fract->c);
-	if (fract->x)
-		free(fract->x);
-	if (fract->y)
-		free(fract->y);
+	if (fract->color)
+		ft_free_color(fract);
 	free(fract);
+	fract = NULL;
+	return (NULL);
 }
 
-void	ft_set_fract_c(t_fract *fract, t_window *window)
+static void	ft_calc_coordinate(t_fract *fract, t_window *window, int x, int y)
 {
-	int	x;
-	int	y;
+	fract->pcx = (x - window->width / 2.0) * (4.0 / fract->zoom) / window->width
+		+ fract->x_offset;
+	fract->pcy = (y - window->height / 2.0) * (4.0 / fract->zoom)
+		/ window->height + fract->y_offset;
+}
 
-	x = 0;
-	y = 0;
-	while (x < window->width)
+static void	ft_calc_pixel_color(t_fract *fract, int max_iter, int x, int y)
+{
+	if (fract->type == MALDEBROT_SET)
 	{
-		y = 0;
-		while (y < window->height)
-		{
-			fract->c->x[x] = x - ((double) window->width / 2)
-				* fract->zoom + fract->x_offeset;
-			fract->c->y[y] = y - ((double) window->height / 2)
-				* fract->zoom + fract->y_offeset;
-			y++;
-		}
-		x++;
+		fract->color[x][y] = ft_maldebrot_calc_fract_points(fract, fract->pcx,
+				fract->pcy, max_iter);
+	}
+	else if (fract->type == JULIA_SET)
+	{
+		fract->color[x][y] = ft_julia_calc_fract_points(fract, fract->pcx,
+				fract->pcy, max_iter);
 	}
 }
 
@@ -110,7 +79,8 @@ void	ft_calc_fract(t_fract *fract, t_window *window, int max_iter)
 		y = 0;
 		while (y < window->height)
 		{
-			ft_calc_fract_points(fract, x, y, max_iter);
+			ft_calc_coordinate(fract, window, x, y);
+			ft_calc_pixel_color(fract, max_iter, x, y);
 			y++;
 		}
 		x++;

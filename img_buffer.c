@@ -28,11 +28,12 @@ t_img_buffer	*ft_init_img_buffer(t_window *window)
 	return (img_buffer);
 }
 
-void	ft_destroy_img_buffer(t_window *window)
+void	*ft_destroy_img_buffer(t_window *window)
 {
 	mlx_destroy_image(window->mlx, window->img->img);
 	free(window->img);
 	window->img = NULL;
+	return (NULL);
 }
 
 void	ft_draw_img_buffer(t_window *window)

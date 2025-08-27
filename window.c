@@ -28,13 +28,18 @@ t_window	*ft_init_window(int width, int height, char *window_name)
 	window->x_window = mlx_new_window(window->mlx,
 			window->width, window->height, window_name);
 	window->img = ft_init_img_buffer(window);
+	if (!window->img)
+	{
+		return (ft_destroy_window(window));
+	}
 	return (window);
 }
 
-void	ft_destroy_window(t_window *window)
+void	*ft_destroy_window(t_window *window)
 {
 	ft_destroy_img_buffer(window);
 	mlx_destroy_window(window->mlx, window->x_window);
 	free(window);
 	window = NULL;
+	return (NULL);
 }

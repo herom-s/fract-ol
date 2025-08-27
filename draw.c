@@ -38,7 +38,7 @@ void	ft_set_fract_draw(t_window *window, t_fract *fract)
 		y = 0;
 		while (y < window->height)
 		{
-			ft_put_pixel(window, fract->x[x], fract->y[y], fract->color[x][y]);
+			ft_put_pixel(window, x, y, fract->color[x][y]);
 			y++;
 		}
 		x++;

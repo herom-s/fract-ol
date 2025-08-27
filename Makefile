@@ -6,25 +6,28 @@
 #    By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:35:18 by hermarti          #+#    #+#              #
-#    Updated: 2025/08/22 19:18:07 by hermarti         ###   ########.fr        #
+#    Updated: 2025/08/26 18:28:28 by hermarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fractol
+NAME := fractol
 
 LIBFT_DIR := libft/
-MLX_DIR := minilibx/
 LIBFT := $(LIBFT_DIR)libft.a
-LIBFT_LIB := -L$(LIBFT_DIR)
+LIBFT_LIB := $(LIBFT)
+
+MLX_DIR := minilibx/
 MLX := $(MLX_DIR)minilibx.a
 MLX_LIB := -L$(MLX_DIR) -lmlx
+
 SRCS = main.c \
 	   draw.c \
 	   window.c \
-	   complex.c \
 	   img_buffer.c \
 	   fract.c \
-	   fract_util.c
+	   fract_util.c \
+	   maldebrot_fract.c \
+	   julia_fract.c
 
 LIBFT_INC := $(LIBFT_DIR)inc/
 MLX_INC := $(MLX_DIR)
@@ -42,7 +45,6 @@ endif
 OBJS = $(SRCS:.c=.o)
 
 RM = rm -f
-RMDIR = rm -rf
 
 .PHONY: all clean fclean re
 
@@ -67,7 +69,6 @@ clean:
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
-	$(MAKE) -C $(MLX_DIR) fclean
 	$(RM) $(NAME)
 
 re: fclean all
