@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 17:07:44 by hermarti          #+#    #+#             */
-/*   Updated: 2025/08/26 18:37:01 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/01 19:16:37 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,39 +37,45 @@ static int	ft_get_color_smooth(double iter, int max_iter)
 	return ((r << 16) | (g << 8) | b);
 }
 
-int	ft_julia_calc_fract_points(t_fract *fract, double zx, double zy,
-		int max_iter)
+static int	ft_check_period(double zx, double zy, int *iter, int max_iter)
+{
+	static double	xold = 0.0;
+	static double	yold = 0.0;
+	static int		period = 0;
+
+	if (ft_approx_eq_double(zx, xold) && ft_approx_eq_double(zy, yold))
+	{
+		*iter = max_iter;
+		return (1);
+	}
+	period++;
+	if (period > 20)
+	{
+		period = 0;
+		xold = zx;
+		yold = zy;
+	}
+	return (0);
+}
+
+int	ft_julia_calc_fract_points(t_fract *fract, double zx, double zy)
 {
 	double	zx2;
 	double	zy2;
-	double	xold;
-	double	yold;
 	int		iter;
-	int		period;
 
-	period = 0;
 	iter = 0;
-	zy2 = zx * zx;
-	zx2 = zy * zy;
-	while (zx2 + zy2 < 4.0 && iter < max_iter)
+	zy2 = zy * zy;
+	zx2 = zx * zx;
+	while (zx2 + zy2 < 4.0 && iter < fract->max_iter)
 	{
 		zy = 2 * zx * zy + fract->py;
 		zx = zx2 - zy2 + fract->px;
-		zx2 = zx * zx;
 		zy2 = zy * zy;
+		zx2 = zx * zx;
 		iter++;
-		if (ft_approx_eq_double(zx, xold) && ft_approx_eq_double(zy, yold))
-		{
-			iter = max_iter;
-			break ;
-		}
-		period++;
-		if (period > 20)
-		{
-			period = 0;
-			xold = zx;
-			yold = zy;
-		}
+		if (ft_check_period(zx, zy, &iter, fract->max_iter))
+			return (ft_get_color_smooth((double)iter, fract->max_iter));
 	}
-	return (ft_get_color_smooth((double)iter, max_iter));
+	return (ft_get_color_smooth((double)iter, fract->max_iter));
 }

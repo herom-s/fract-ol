@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 14:22:14 by hermarti          #+#    #+#             */
-/*   Updated: 2025/08/22 17:48:09 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/01 19:12:57 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ void	ft_draw_img_buffer(t_window *window)
 {
 	mlx_put_image_to_window(window->mlx,
 		window->x_window, window->img->img, 0, 0);
+	window->need_redraw = 0;
 }

@@ -6,7 +6,7 @@
 #    By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:35:18 by hermarti          #+#    #+#              #
-#    Updated: 2025/08/26 18:28:28 by hermarti         ###   ########.fr        #
+#    Updated: 2025/09/01 19:24:40 by hermarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,17 @@ MLX := $(MLX_DIR)minilibx.a
 MLX_LIB := -L$(MLX_DIR) -lmlx
 
 SRCS = main.c \
+	   env.c \
 	   draw.c \
+	   error.c \
 	   window.c \
+	   key_handler.c \
+	   mouse_handler.c \
 	   img_buffer.c \
+	   args_handler.c \
 	   fract.c \
 	   fract_util.c \
-	   maldebrot_fract.c \
+	   mandelbrot_fract.c \
 	   julia_fract.c
 
 LIBFT_INC := $(LIBFT_DIR)inc/
@@ -39,7 +44,7 @@ CFLAGS = -I$(MLX_INC) -I$(LIBFT_INC) -Wall -Wextra -Werror
 
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
-	CFLAGS += -g2 -O0
+	CFLAGS += -g2 -O0 -fsanitize=leak
 endif
 
 OBJS = $(SRCS:.c=.o)

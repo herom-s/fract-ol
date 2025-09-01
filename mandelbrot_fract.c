@@ -37,43 +37,49 @@ static int	ft_get_color_smooth(double iter, int max_iter)
 	return ((r << 16) | (g << 8) | b);
 }
 
-int	ft_maldebrot_calc_fract_points(t_fract *fract, double x, double y,
-		int max_iter)
+static int	ft_check_period(double zx, double zy, int *iter, int max_iter)
+{
+	static double	xold = 0.0;
+	static double	yold = 0.0;
+	static int		period = 0;
+
+	if (ft_approx_eq_double(zx, xold) && ft_approx_eq_double(zy, yold))
+	{
+		*iter = max_iter;
+		return (1);
+	}
+	period++;
+	if (period > 20)
+	{
+		period = 0;
+		xold = zx;
+		yold = zy;
+	}
+	return (0);
+}
+
+int	ft_mandelbrot_calc_fract_points(t_fract *fract, double x, double y)
 {
 	double	zx;
 	double	zy;
 	double	zx2;
 	double	zy2;
-	double	xold;
-	double	yold;
 	int		iter;
-	int		period;
 
-	period = 0;
 	iter = 0;
 	zy2 = 0;
 	zx2 = 0;
 	zx = fract->px;
 	zy = fract->py;
-	while (zx2 + zy2 < 4.0 && iter < max_iter)
+	while (zx2 + zy2 < 4.0 && iter < fract->max_iter)
 	{
 		zy = 2 * zx * zy + y;
 		zx = zx2 - zy2 + x;
 		zx2 = zx * zx;
 		zy2 = zy * zy;
 		iter++;
-		if (ft_approx_eq_double(zx, xold) && ft_approx_eq_double(zy, yold))
-		{
-			iter = max_iter;
-			break ;
-		}
-		period++;
-		if (period > 20)
-		{
-			period = 0;
-			xold = zx;
-			yold = zy;
-		}
+		if (ft_check_period(zx, zy, &iter, fract->max_iter))
+			return (ft_get_color_smooth((double) iter, fract->max_iter));
 	}
-	return (ft_get_color_smooth((double)iter, max_iter));
+	return (ft_get_color_smooth((double)iter, fract->max_iter));
 }

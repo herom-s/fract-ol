@@ -1,3 +1,5 @@
+# Ignoring compile_flags
+compile_flags.txt
 # Prerequisites
 *.d
 

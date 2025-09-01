@@ -6,26 +6,24 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 13:53:49 by hermarti          #+#    #+#             */
-/*   Updated: 2025/08/26 18:51:43 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/01 19:32:19 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <mlx.h>
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	t_window	*window;
-	t_fract		*fract;
+	t_env	*env;
 
-	window = ft_init_window(1920, 1080, "fractol");
-	if (!window)
-		return (1);
-	fract = ft_init_fract(window, MALDEBROT_SET, 0, 0);
-	ft_calc_fract(fract, window, 1000);
-	ft_set_fract_draw(window, fract);
-	ft_draw_img_buffer(window);
-	mlx_loop(window->mlx);
-	ft_detroy_fract(fract);
-	ft_destroy_window(window);
+	env = ft_init_env(argc, argv);
+	ft_calc_fract(env->fract, env->window);
+	ft_set_fract_draw(env->window, env->fract);
+	ft_draw_img_buffer(env->window);
+	mlx_mouse_hook(env->window->x_window, ft_mouse_handler, env);
+	mlx_key_hook(env->window->x_window, ft_key_handler, env);
+	mlx_hook(env->window->x_window, 17, 1L << 0, ft_close_window, env);
+	mlx_loop(env->window->mlx);
+	ft_destroy_env(env);
 }
