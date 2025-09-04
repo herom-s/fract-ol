@@ -11,13 +11,13 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdlib.h>
+#include "libft.h"
 
 t_env	*ft_init_env(int argc, char **argv)
 {
 	t_env		*env;
 
-	env = malloc(sizeof(t_env));
+	env = ft_calloc(1, sizeof(t_env));
 	if (!env)
 		return (NULL);
 	check_args(env, argc, argv);

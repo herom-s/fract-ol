@@ -12,6 +12,7 @@
 
 #include "fractol.h"
 #include "libft.h"
+#include <stdlib.h>
 
 static void	ft_print_arg_help(void)
 {
@@ -28,9 +29,9 @@ static void	ft_print_arg_help(void)
 	ft_printf("CONTROLS:\n");
 	ft_printf("  Mouse wheel   Zoom in/out\n");
 	ft_printf("  ESC           Quit\n");
-	ft_printf("  Q             Change Fractal color");
-	ft_printf("  +             Raise the number of iterations by 10");
-	ft_printf("  -             Decress the number of iterations by 10");
+	ft_printf("  Q             Change Fractal color\n");
+	ft_printf("  +             Raise the number of iterations by 10\n");
+	ft_printf("  -             Decress the number of iterations by 10\n");
 }
 
 int	check_args(t_env *env, int argc, char **argv)
@@ -46,6 +47,7 @@ int	check_args(t_env *env, int argc, char **argv)
 	{
 		ft_destroy_env(env);
 		ft_print_arg_help();
+		exit(EXIT_SUCCESS);
 		return (0);
 	}
 	if (ft_strcmp(argv[1], "mandelbrot") != 0 && ft_strcmp(argv[1],
