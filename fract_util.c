@@ -6,11 +6,12 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 15:54:49 by hermarti          #+#    #+#             */
-/*   Updated: 2025/08/26 18:07:29 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/02 20:09:16 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <stdlib.h>
 
 int	**alloc_color(t_window *window)
 {
@@ -52,4 +53,11 @@ void	ft_free_color(t_fract *fract)
 		i++;
 	}
 	free(fract->color);
+}
+
+void	ft_set_get_color(t_fract *fract)
+{
+	fract->get_color[0] = ft_get_color_basic;
+	fract->get_color[1] = ft_get_color_iter_shifft;
+	fract->get_color[2] = ft_get_color_psychedelic;
 }

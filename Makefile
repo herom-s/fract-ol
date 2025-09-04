@@ -6,7 +6,7 @@
 #    By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:35:18 by hermarti          #+#    #+#              #
-#    Updated: 2025/09/01 19:24:40 by hermarti         ###   ########.fr        #
+#    Updated: 2025/09/02 19:31:13 by hermarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = main.c \
 	   env.c \
 	   draw.c \
 	   error.c \
+	   color.c \
 	   window.c \
 	   key_handler.c \
 	   mouse_handler.c \

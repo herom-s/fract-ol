@@ -6,11 +6,12 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 17:22:06 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/01 19:26:27 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/02 20:09:23 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "libft.h"
 #include <stdlib.h>
 
 t_fract	*ft_init_fract(t_window *window, t_fract_type type, double px,
@@ -18,7 +19,7 @@ t_fract	*ft_init_fract(t_window *window, t_fract_type type, double px,
 {
 	t_fract	*fract;
 
-	fract = malloc(sizeof(t_fract));
+	fract = ft_calloc(1, sizeof(t_fract));
 	if (!fract)
 		return (NULL);
 	fract->color = alloc_color(window);
@@ -28,13 +29,10 @@ t_fract	*ft_init_fract(t_window *window, t_fract_type type, double px,
 	fract->width = window->width;
 	fract->height = window->height;
 	fract->zoom = 1.0;
-	fract->x_offset = 0.0;
-	fract->y_offset = 0.0;
 	fract->type = type;
-	fract->pcx = 0;
-	fract->pcy = 0;
 	fract->px = px;
 	fract->py = py;
+	ft_set_get_color(fract);
 	return (fract);
 }
 

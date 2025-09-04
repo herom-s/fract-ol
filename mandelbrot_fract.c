@@ -21,23 +21,7 @@ static int	ft_approx_eq_double(double a, double b)
 		return (0);
 }
 
-static int	ft_get_color_smooth(double iter, int max_iter)
-{
-	double	v;
-	int		r;
-	int		g;
-	int		b;
-
-	if (iter == max_iter)
-		return (0x000000);
-	v = log(iter + 1) / log(max_iter + 1);
-	r = (int)(9 * (1 - v) * v * v * v * 255);
-	g = (int)(15 * (1 - v) * (1 - v) * v * v * 255);
-	b = (int)(8.5 * (1 - v) * (1 - v) * (1 - v) * v * 255);
-	return ((r << 16) | (g << 8) | b);
-}
-
-static int	ft_check_period(double zx, double zy, int *iter, int max_iter)
+static int	ft_check_period(double zx, double zy, double *iter, double max_iter)
 {
 	static double	xold = 0.0;
 	static double	yold = 0.0;
@@ -64,13 +48,13 @@ int	ft_mandelbrot_calc_fract_points(t_fract *fract, double x, double y)
 	double	zy;
 	double	zx2;
 	double	zy2;
-	int		iter;
+	double	iter;
 
 	iter = 0;
 	zy2 = 0;
 	zx2 = 0;
-	zx = fract->px;
-	zy = fract->py;
+	zx = 0.0;
+	zy = 0.0;
 	while (zx2 + zy2 < 4.0 && iter < fract->max_iter)
 	{
 		zy = 2 * zx * zy + y;
@@ -79,7 +63,8 @@ int	ft_mandelbrot_calc_fract_points(t_fract *fract, double x, double y)
 		zy2 = zy * zy;
 		iter++;
 		if (ft_check_period(zx, zy, &iter, fract->max_iter))
-			return (ft_get_color_smooth((double) iter, fract->max_iter));
+			break ;
 	}
-	return (ft_get_color_smooth((double)iter, fract->max_iter));
+	iter = (iter + 1) - log(log(sqrt(zx2 + zy2))) / log(2.0);
+	return (fract->get_color[fract->color_id](iter, fract->max_iter));
 }

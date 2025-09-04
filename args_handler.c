@@ -22,13 +22,15 @@ static void	ft_print_arg_help(void)
 (requires c_real c_imag parameters)\n");
 	ft_printf("OPTIONS:\n");
 	ft_printf("  -h, --help    Show this help message\n");
-	ft_printf("  -i NUM        Set maximum iterations (default: 100)\n");
 	ft_printf("EXAMPLES:\n");
 	ft_printf("  fractol mandelbrot\n");
 	ft_printf("  fractol julia -0.7 0.27015\n");
 	ft_printf("CONTROLS:\n");
 	ft_printf("  Mouse wheel   Zoom in/out\n");
 	ft_printf("  ESC           Quit\n");
+	ft_printf("  Q             Change Fractal color");
+	ft_printf("  +             Raise the number of iterations by 10");
+	ft_printf("  -             Decress the number of iterations by 10");
 }
 
 int	check_args(t_env *env, int argc, char **argv)

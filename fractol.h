@@ -6,14 +6,14 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 13:59:48 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/01 19:26:51 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/02 20:10:15 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# include <stdlib.h>
+# define MAX_COLORS 3
 
 typedef struct s_img_buffer
 {
@@ -40,9 +40,12 @@ typedef enum e_fract_type
 	JULIA_SET
 }					t_fract_type;
 
+typedef int			(*t_ft_get_color)(double iter, double max_iter);
+
 typedef struct s_fract
 {
-	int				max_iter;
+	int				color_id;
+	double			max_iter;
 	int				width;
 	int				height;
 	double			pcx;
@@ -54,6 +57,7 @@ typedef struct s_fract
 	double			x_offset;
 	double			y_offset;
 	t_fract_type	type;
+	t_ft_get_color	get_color[MAX_COLORS];
 }					t_fract;
 
 typedef struct s_env
@@ -79,8 +83,14 @@ void				ft_set_fract_draw(t_window *window, t_fract *fract);
 
 void				ft_draw_img_buffer(t_window *window);
 
+int					ft_get_color_basic(double iter, double max_iter);
+int					ft_get_color_psychedelic(double iter, double max_iter);
+int					ft_get_color_iter_shifft(double iter, double max_iter);
+
 int					**alloc_color(t_window *window);
 void				ft_free_color(t_fract *fract);
+
+void				ft_set_get_color(t_fract *fract);
 
 t_fract				*ft_init_fract(t_window *window, t_fract_type type,
 						double px, double py);
