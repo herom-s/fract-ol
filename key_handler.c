@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 18:06:16 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/02 20:02:26 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/05 15:21:02 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	change_iter_handler(int keycode, t_env *env)
 	{
 		env->window->need_redraw = 1;
 		env->fract->max_iter -= 10;
-		if (env->fract->max_iter < 0)
+		if (env->fract->max_iter <= 0)
 			env->fract->max_iter = 10;
 	}
 }

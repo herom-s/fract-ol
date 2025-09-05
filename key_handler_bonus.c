@@ -6,11 +6,12 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:34:46 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/04 19:34:54 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/05 19:02:11 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol_bonus.h"
+#include "libft.h"
 
 static void	change_iter_handler(int keycode, t_env *env)
 {
@@ -23,8 +24,73 @@ static void	change_iter_handler(int keycode, t_env *env)
 	{
 		env->window->need_redraw = 1;
 		env->fract->max_iter -= 10;
-		if (env->fract->max_iter < 0)
+		if (env->fract->max_iter <= 0)
 			env->fract->max_iter = 10;
+	}
+}
+
+static void	change_fract_handler(int keycode, t_env *env)
+{
+	if (keycode == 49)
+	{
+		env->window->need_redraw = 1;
+		env->fract->type = MALDEBROT_SET;
+	}
+	else if (keycode == 50)
+	{
+		env->window->need_redraw = 1;
+		env->fract->type = JULIA_SET;
+		env->fract->px = 0.4;
+		env->fract->py = 0.4;
+	}
+	else if (keycode == 51)
+	{
+		env->window->need_redraw = 1;
+		env->fract->type = BURNING_SHIP_SET;
+	}
+}
+
+static void	change_fract_color_shift(int keycode, t_env *env)
+{
+	(void)env;
+	if (keycode == 101)
+	{
+		env->window->need_redraw = 1;
+		env->fract->color_shift += 0.5;
+		if (env->fract->color_shift >= 10)
+			env->fract->color_shift = 0.5;
+	}
+	else if (keycode == 114)
+	{
+		env->window->need_redraw = 1;
+		env->fract->color_shift -= 0.5;
+		if (env->fract->color_shift <= 0)
+			env->fract->color_shift = 0.5;
+	}
+}
+
+static void	move_in_fract_handler(int keycode, t_env *env)
+{
+	(void)env;
+	if (keycode == 65362 || keycode == 119)
+	{
+		env->window->need_redraw = 1;
+		env->fract->y_offset += 0.1 / env->fract->zoom;
+	}
+	else if (keycode == 65364 || keycode == 115)
+	{
+		env->window->need_redraw = 1;
+		env->fract->y_offset -= 0.1 / env->fract->zoom;
+	}
+	else if (keycode == 65361 || keycode == 97)
+	{
+		env->window->need_redraw = 1;
+		env->fract->x_offset -= 0.1 / env->fract->zoom;
+	}
+	else if (keycode == 65363 || keycode == 100)
+	{
+		env->window->need_redraw = 1;
+		env->fract->x_offset += 0.1 / env->fract->zoom;
 	}
 }
 
@@ -38,6 +104,9 @@ int	ft_key_handler(int keycode, t_env *env)
 		env->fract->color_id = (env->fract->color_id + 1) % MAX_COLORS;
 	}
 	change_iter_handler(keycode, env);
+	change_fract_handler(keycode, env);
+	change_fract_color_shift(keycode, env);
+	move_in_fract_handler(keycode, env);
 	if (env->window->need_redraw)
 	{
 		ft_calc_fract(env->fract, env->window);

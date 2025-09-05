@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:33:29 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/04 19:33:44 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:15:14 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,5 @@ int	ft_julia_calc_fract_points(t_fract *fract, double zx, double zy)
 			break ;
 	}
 	iter = iter + 1 - log(log(sqrt(zx2 + zy2))) / log(2.0);
-	return (fract->get_color[fract->color_id](iter, fract->max_iter));
+	return (fract->get_color[fract->color_id](fract, iter));
 }

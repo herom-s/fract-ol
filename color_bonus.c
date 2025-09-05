@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:30:32 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/04 19:30:49 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:24:31 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ static void	ft_clamp_color(int *r, int *g, int *b)
 		*b = 255;
 }
 
-int	ft_get_color_basic(double iter, double max_iter)
+int	ft_get_color_basic(t_fract *fract, double iter)
 {
 	double	t;
 	int		r;
 	int		g;
 	int		b;
 
-	if (iter >= max_iter)
+	if (iter >= fract->max_iter)
 		return (0x00000000);
-	t = (double)iter / max_iter;
-	t = fmod(t, 1.0);
+	t = iter / fract->max_iter;
+	t = fmod(t + (fract->color_shift * 0.1), 1.0);
 	r = (int)(255 * t * 0.3);
 	g = (int)(255 * (1 - t) * t * 4);
 	b = (int)(255 * (1 - t * 0.5));
@@ -47,17 +47,17 @@ int	ft_get_color_basic(double iter, double max_iter)
 	return ((r << 16) | (g << 8) | b);
 }
 
-int	ft_get_color_psychedelic(double iter, double max_iter)
+int	ft_get_color_psychedelic(t_fract *fract, double iter)
 {
 	double	t;
 	int		r;
 	int		g;
 	int		b;
 
-	if (iter >= max_iter)
+	if (iter >= fract->max_iter)
 		return (0x000000);
-	t = iter / max_iter;
-	t = fmod(t, 1.0);
+	t = iter / fract->max_iter;
+	t = fmod(t + (fract->color_shift * 0.1), 1.0);
 	r = (int)(255 * sin(t * 16));
 	g = (int)(255 * sin(t * 13 + 2));
 	b = (int)(255 * sin(t * 17 + 4));
@@ -65,16 +65,17 @@ int	ft_get_color_psychedelic(double iter, double max_iter)
 	return ((r << 16) | (g << 8) | b);
 }
 
-int	ft_get_color_iter_shifft(double iter, double max_iter)
+int	ft_get_color_iter_shifft(t_fract *fract, double iter)
 {
 	double	t;
 	int		r;
 	int		g;
 	int		b;
 
-	if (iter >= max_iter)
+	if (iter >= fract->max_iter)
 		return (0x000000);
-	t = iter / max_iter;
+	t = iter / fract->max_iter;
+	t = fmod(t + (fract->color_shift * 0.1), 1.0);
 	r = (int)(255 * t);
 	g = (int)(255 * t);
 	b = (int)(255 * t);

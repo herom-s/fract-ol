@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:31:07 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/04 19:31:22 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:01:39 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ static void	ft_print_arg_help(void)
 	ft_printf("  2             Change Fractal to Julia\n");
 	ft_printf("  3             Change Fractal to Burning Ship\n");
 	ft_printf("  +             Raise the number of iterations by 10\n");
-	ft_printf("  -             Decrease the number of iterations by 10\n");
+	ft_printf(" ↑|w            Move up in the fractal\n");
+	ft_printf(" ↓|s            Move down in the fractal\n");
+	ft_printf(" →|d            Move right in the fractal\n");
+	ft_printf(" ←|a            Move left in the fractal\n");
 }
 
 int	check_args(t_env *env, int argc, char **argv)
@@ -58,7 +61,7 @@ int	check_args(t_env *env, int argc, char **argv)
 		return (0);
 	}
 	if (ft_strcmp(argv[1], "mandelbrot") != 0 && ft_strcmp(argv[1],
-			"julia") != 0)
+			"julia") != 0 && ft_strcmp(argv[1], "burning_ship"))
 	{
 		ft_destroy_env(env);
 		ft_print_arg_help();
@@ -103,6 +106,11 @@ int	args_handler(t_env *env, int argc, char **argv)
 		env->fract->type = JULIA_SET;
 		env->fract->px = ft_atod(argv[2]);
 		env->fract->py = ft_atod(argv[3]);
+		return (1);
+	}
+	else if (ft_strcmp(argv[1], "burning_ship") == 0)
+	{
+		env->fract->type = BURNING_SHIP_SET;
 		return (1);
 	}
 	return (0);

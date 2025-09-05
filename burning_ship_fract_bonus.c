@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot_fract_bonus.c                           :+:      :+:    :+:   */
+/*   burning_ship_fract_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/04 19:35:05 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/05 16:15:27 by hermarti         ###   ########.fr       */
+/*   Created: 2025/09/05 13:45:20 by hermarti          #+#    #+#             */
+/*   Updated: 2025/09/05 16:15:52 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	ft_check_period(double zx, double zy, double *iter, double max_iter)
 	return (0);
 }
 
-int	ft_mandelbrot_calc_fract_points(t_fract *fract, double x, double y)
+int	ft_burning_ship_calc_fract_points(t_fract *fract, double x, double y)
 {
 	double	zx;
 	double	zy;
@@ -57,7 +57,7 @@ int	ft_mandelbrot_calc_fract_points(t_fract *fract, double x, double y)
 	zy = 0.0;
 	while (zx2 + zy2 < 4.0 && iter < fract->max_iter)
 	{
-		zy = 2 * zx * zy + y;
+		zy = fabs(2 * zx * zy) - y;
 		zx = zx2 - zy2 + x;
 		zx2 = zx * zx;
 		zy2 = zy * zy;

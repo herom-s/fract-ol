@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:32:19 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/04 19:52:17 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/05 13:48:06 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ static void	ft_calc_pixel_color(t_fract *fract, int x, int y)
 	{
 		fract->color[x][y] = ft_julia_calc_fract_points(fract, fract->pcx,
 				fract->pcy);
+	}
+	else if (fract->type == BURNING_SHIP_SET)
+	{
+		fract->color[x][y] = ft_burning_ship_calc_fract_points(fract,
+				fract->pcx, fract->pcy);
 	}
 }
 

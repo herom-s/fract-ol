@@ -6,7 +6,7 @@
 #    By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:35:18 by hermarti          #+#    #+#              #
-#    Updated: 2025/09/04 20:12:23 by hermarti         ###   ########.fr        #
+#    Updated: 2025/09/05 13:49:23 by hermarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ SRCS_BONUS = main_bonus.c \
 	   fract_bonus.c \
 	   fract_util_bonus.c \
 	   mandelbrot_fract_bonus.c \
-	   julia_fract_bonus.c
+	   julia_fract_bonus.c \
+	   burning_ship_fract_bonus.c
 
 INC = fractol.h
 INC_BONUS = fractol_bonus.h
