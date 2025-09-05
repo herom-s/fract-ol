@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   env_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 15:27:01 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/01 18:11:23 by hermarti         ###   ########.fr       */
+/*   Created: 2025/09/04 19:05:10 by hermarti          #+#    #+#             */
+/*   Updated: 2025/09/04 19:05:18 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "fractol_bonus.h"
 #include "libft.h"
-#include <stdlib.h>
 
 t_env	*ft_init_env(int argc, char **argv)
 {

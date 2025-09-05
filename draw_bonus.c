@@ -1,0 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/04 19:30:04 by hermarti          #+#    #+#             */
+/*   Updated: 2025/09/04 19:30:17 by hermarti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fractol_bonus.h"
+#include <mlx.h>
+
+static void	ft_put_pixel(t_window *window, int x, int y, int color)
+{
+	char	*pxl;
+
+	if (x >= 0 && x < window->width && y >= 0 && y < window->height)
+	{
+		pxl = window->img->img_addr
+			+ (y * window->img->size_line
+				+ x * (window->img->bits_per_pixel / 8));
+		*(unsigned int *)pxl = color;
+	}
+}
+
+void	ft_set_fract_draw(t_window *window, t_fract *fract)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (x < window->width)
+	{
+		y = 0;
+		while (y < window->height)
+		{
+			ft_put_pixel(window, x, y, fract->color[x][y]);
+			y++;
+		}
+		x++;
+	}
+}

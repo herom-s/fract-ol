@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_handler.c                                     :+:      :+:    :+:   */
+/*   args_handler_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/27 18:33:12 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/04 19:38:03 by hermarti         ###   ########.fr       */
+/*   Created: 2025/09/04 19:31:07 by hermarti          #+#    #+#             */
+/*   Updated: 2025/09/04 19:31:22 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "fractol_bonus.h"
 #include "libft.h"
 #include <stdlib.h>
 
@@ -21,15 +21,22 @@ static void	ft_print_arg_help(void)
 	ft_printf("  mandelbrot    Generate Mandelbrot set\n");
 	ft_printf("  julia         Generate Julia set \
 (requires c_real c_imag parameters)\n");
+	ft_printf("  burning_ship  Generate Burning Ship set\n");
 	ft_printf("OPTIONS:\n");
 	ft_printf("  -h, --help    Show this help message\n");
 	ft_printf("EXAMPLES:\n");
 	ft_printf("  fractol mandelbrot\n");
 	ft_printf("  fractol julia -0.7 0.27015\n");
+	ft_printf("  fractol burning_ship\n");
 	ft_printf("CONTROLS:\n");
 	ft_printf("  Mouse wheel   Zoom in/out\n");
 	ft_printf("  ESC           Quit\n");
 	ft_printf("  Q             Change Fractal color\n");
+	ft_printf("  E             Raise Fractal color shift\n");
+	ft_printf("  R             Decrease Fractal color shift\n");
+	ft_printf("  1             Change Fractal to Mandelbrot\n");
+	ft_printf("  2             Change Fractal to Julia\n");
+	ft_printf("  3             Change Fractal to Burning Ship\n");
 	ft_printf("  +             Raise the number of iterations by 10\n");
 	ft_printf("  -             Decrease the number of iterations by 10\n");
 }

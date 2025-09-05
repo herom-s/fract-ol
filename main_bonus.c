@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/22 13:53:49 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/01 19:32:19 by hermarti         ###   ########.fr       */
+/*   Created: 2025/09/04 19:04:07 by hermarti          #+#    #+#             */
+/*   Updated: 2025/09/04 19:05:25 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "fractol_bonus.h"
 #include <mlx.h>
 
 int	main(int argc, char **argv)

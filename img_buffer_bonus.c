@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   img_buffer.c                                       :+:      :+:    :+:   */
+/*   img_buffer_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/22 14:22:14 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/04 19:37:39 by hermarti         ###   ########.fr       */
+/*   Created: 2025/09/04 19:33:10 by hermarti          #+#    #+#             */
+/*   Updated: 2025/09/04 19:37:47 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "fractol_bonus.h"
 #include <mlx.h>
 #include <stdlib.h>
 
