@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "fractol_bonus.h"
+#include "libft.h"
 #include <mlx.h>
 #include <stdlib.h>
 
@@ -18,7 +19,7 @@ t_window	*ft_init_window(int width, int height, char *window_name)
 {
 	t_window	*window;
 
-	window = malloc(sizeof(t_window));
+	window = ft_calloc(1, sizeof(t_window));
 	if (!window)
 		return (NULL);
 	window->width = width;

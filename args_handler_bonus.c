@@ -44,7 +44,7 @@ static void	ft_print_arg_help(void)
 	ft_printf(" ←|a            Move left in the fractal\n");
 }
 
-int	check_args(t_env *env, int argc, char **argv)
+int	ft_check_args(t_env *env, int argc, char **argv)
 {
 	if (argc == 1)
 	{
@@ -71,7 +71,7 @@ int	check_args(t_env *env, int argc, char **argv)
 	return (1);
 }
 
-static int	check_args_julia(t_env *env, int argc, char **argv)
+static int	ft_check_args_julia(t_env *env, int argc, char **argv)
 {
 	if (argc != 4)
 	{
@@ -92,7 +92,7 @@ valid floating-point numbers\n");
 	return (1);
 }
 
-int	args_handler(t_env *env, int argc, char **argv)
+int	ft_args_handler(t_env *env, int argc, char **argv)
 {
 	if (ft_strcmp(argv[1], "mandelbrot") == 0)
 	{
@@ -101,11 +101,12 @@ int	args_handler(t_env *env, int argc, char **argv)
 	}
 	else if (ft_strcmp(argv[1], "julia") == 0)
 	{
-		if (!check_args_julia(env, argc, argv))
+		if (!ft_check_args_julia(env, argc, argv))
 			return (0);
 		env->fract->type = JULIA_SET;
 		env->fract->px = ft_atod(argv[2]);
 		env->fract->py = ft_atod(argv[3]);
+		env->fract->need_zoom = 1;
 		return (1);
 	}
 	else if (ft_strcmp(argv[1], "burning_ship") == 0)

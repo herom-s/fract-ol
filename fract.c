@@ -22,7 +22,7 @@ t_fract	*ft_init_fract(t_window *window, t_fract_type type, double px,
 	fract = ft_calloc(1, sizeof(t_fract));
 	if (!fract)
 		return (NULL);
-	fract->color = alloc_color(window);
+	fract->color = ft_alloc_color(window);
 	if (!fract->color)
 		return (ft_detroy_fract(fract));
 	fract->max_iter = 100;

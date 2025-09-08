@@ -87,7 +87,7 @@ int					ft_get_color_basic(double iter, double max_iter);
 int					ft_get_color_psychedelic(double iter, double max_iter);
 int					ft_get_color_iter_shifft(double iter, double max_iter);
 
-int					**alloc_color(t_window *window);
+int					**ft_alloc_color(t_window *window);
 void				ft_free_color(t_fract *fract);
 
 void				ft_set_get_color(t_fract *fract);
@@ -103,8 +103,8 @@ int					ft_mandelbrot_calc_fract_points(t_fract *fract, double x,
 int					ft_julia_calc_fract_points(t_fract *fract, double x,
 						double y);
 
-int					check_args(t_env *env, int argc, char **argv);
-int					args_handler(t_env *env, int argc, char **argv);
+int					ft_check_args(t_env *env, int argc, char **argv);
+int					ft_args_handler(t_env *env, int argc, char **argv);
 
 void				*ft_print_error(char *msg);
 #endif

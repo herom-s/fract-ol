@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-static void	change_iter_handler(int keycode, t_env *env)
+static void	ft_change_iter_handler(int keycode, t_env *env)
 {
 	if (keycode == 65451)
 	{
@@ -37,7 +37,7 @@ int	ft_key_handler(int keycode, t_env *env)
 		env->window->need_redraw = 1;
 		env->fract->color_id = (env->fract->color_id + 1) % MAX_COLORS;
 	}
-	change_iter_handler(keycode, env);
+	ft_change_iter_handler(keycode, env);
 	if (env->window->need_redraw)
 	{
 		ft_calc_fract(env->fract, env->window);

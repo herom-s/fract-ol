@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "fractol_bonus.h"
-#include "libft.h"
 
-static void	change_iter_handler(int keycode, t_env *env)
+static void	ft_change_iter_handler(int keycode, t_env *env)
 {
 	if (keycode == 65451)
 	{
@@ -29,7 +28,7 @@ static void	change_iter_handler(int keycode, t_env *env)
 	}
 }
 
-static void	change_fract_handler(int keycode, t_env *env)
+static void	ft_change_fract_handler(int keycode, t_env *env)
 {
 	if (keycode == 49)
 	{
@@ -39,9 +38,12 @@ static void	change_fract_handler(int keycode, t_env *env)
 	else if (keycode == 50)
 	{
 		env->window->need_redraw = 1;
+		env->fract->need_zoom = 0;
 		env->fract->type = JULIA_SET;
-		env->fract->px = 0.4;
-		env->fract->py = 0.4;
+		env->fract->px = (env->window->mx - env->window->width / 2.0) * (4.0
+				/ env->fract->zoom) / env->window->width;
+		env->fract->py = (env->window->my - env->window->height / 2.0) * (4.0
+				/ env->fract->zoom) / env->window->height;
 	}
 	else if (keycode == 51)
 	{
@@ -50,9 +52,8 @@ static void	change_fract_handler(int keycode, t_env *env)
 	}
 }
 
-static void	change_fract_color_shift(int keycode, t_env *env)
+static void	ft_change_fract_color_shift(int keycode, t_env *env)
 {
-	(void)env;
 	if (keycode == 101)
 	{
 		env->window->need_redraw = 1;
@@ -69,9 +70,8 @@ static void	change_fract_color_shift(int keycode, t_env *env)
 	}
 }
 
-static void	move_in_fract_handler(int keycode, t_env *env)
+static void	ft_move_in_fract_handler(int keycode, t_env *env)
 {
-	(void)env;
 	if (keycode == 65362 || keycode == 119)
 	{
 		env->window->need_redraw = 1;
@@ -103,10 +103,10 @@ int	ft_key_handler(int keycode, t_env *env)
 		env->window->need_redraw = 1;
 		env->fract->color_id = (env->fract->color_id + 1) % MAX_COLORS;
 	}
-	change_iter_handler(keycode, env);
-	change_fract_handler(keycode, env);
-	change_fract_color_shift(keycode, env);
-	move_in_fract_handler(keycode, env);
+	ft_change_iter_handler(keycode, env);
+	ft_change_fract_handler(keycode, env);
+	ft_change_fract_color_shift(keycode, env);
+	ft_move_in_fract_handler(keycode, env);
 	if (env->window->need_redraw)
 	{
 		ft_calc_fract(env->fract, env->window);

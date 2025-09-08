@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 	ft_draw_img_buffer(env->window);
 	mlx_mouse_hook(env->window->x_window, ft_mouse_handler, env);
 	mlx_key_hook(env->window->x_window, ft_key_handler, env);
+	mlx_hook(env->window->x_window, 6, 1L << 6, ft_mouse_move_handler, env);
 	mlx_hook(env->window->x_window, 17, 1L << 0, ft_close_window, env);
 	mlx_loop(env->window->mlx);
 	ft_destroy_env(env);

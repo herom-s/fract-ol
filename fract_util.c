@@ -13,7 +13,7 @@
 #include "fractol.h"
 #include <stdlib.h>
 
-int	**alloc_color(t_window *window)
+int	**ft_alloc_color(t_window *window)
 {
 	int	i;
 	int	**color;

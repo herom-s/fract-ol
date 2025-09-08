@@ -20,7 +20,7 @@ t_env	*ft_init_env(int argc, char **argv)
 	env = ft_calloc(1, sizeof(t_env));
 	if (!env)
 		return (NULL);
-	check_args(env, argc, argv);
+	ft_check_args(env, argc, argv);
 	env->window = ft_init_window(800, 600, "fractol");
 	if (!env->window)
 	{
@@ -33,7 +33,7 @@ t_env	*ft_init_env(int argc, char **argv)
 		ft_destroy_env(env);
 		ft_print_error("Error: Failed to allocate memory to the fract");
 	}
-	args_handler(env, argc, argv);
+	ft_args_handler(env, argc, argv);
 	return (env);
 }
 
