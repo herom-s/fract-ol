@@ -6,14 +6,14 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:35:05 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/05 16:15:27 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/10 02:41:14 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol_bonus.h"
 #include <math.h>
 
-static int	ft_approx_eq_double(double a, double b)
+static int	ft_approx_eq_float(float a, float b)
 {
 	if (fabs(a - b) < 1e-9)
 		return (1);
@@ -21,13 +21,13 @@ static int	ft_approx_eq_double(double a, double b)
 		return (0);
 }
 
-static int	ft_check_period(double zx, double zy, double *iter, double max_iter)
+static int	ft_check_period(float zx, float zy, float *iter, float max_iter)
 {
-	static double	xold = 0.0;
-	static double	yold = 0.0;
+	static float	xold = 0.0f;
+	static float	yold = 0.0f;
 	static int		period = 0;
 
-	if (ft_approx_eq_double(zx, xold) && ft_approx_eq_double(zy, yold))
+	if (ft_approx_eq_float(zx, xold) && ft_approx_eq_float(zy, yold))
 	{
 		*iter = max_iter;
 		return (1);
@@ -42,22 +42,22 @@ static int	ft_check_period(double zx, double zy, double *iter, double max_iter)
 	return (0);
 }
 
-int	ft_mandelbrot_calc_fract_points(t_fract *fract, double x, double y)
+int	ft_mandelbrot_calc_fract_points(t_fract *fract, float x, float y)
 {
-	double	zx;
-	double	zy;
-	double	zx2;
-	double	zy2;
-	double	iter;
+	float	zx;
+	float	zy;
+	float	zx2;
+	float	zy2;
+	float	iter;
 
-	iter = 0;
-	zy2 = 0;
-	zx2 = 0;
-	zx = 0.0;
-	zy = 0.0;
-	while (zx2 + zy2 < 4.0 && iter < fract->max_iter)
+	iter = 0.0f;
+	zy2 = 0.0f;
+	zx2 = 0.0f;
+	zx = 0.0f;
+	zy = 0.0f;
+	while (zx2 + zy2 < 4.0f && iter < fract->max_iter)
 	{
-		zy = 2 * zx * zy + y;
+		zy = 2.0f * zx * zy + y;
 		zx = zx2 - zy2 + x;
 		zx2 = zx * zx;
 		zy2 = zy * zy;
@@ -65,6 +65,6 @@ int	ft_mandelbrot_calc_fract_points(t_fract *fract, double x, double y)
 		if (ft_check_period(zx, zy, &iter, fract->max_iter))
 			break ;
 	}
-	iter = (iter + 1) - log(log(sqrt(zx2 + zy2))) / log(2.0);
+	iter = (iter + 1.0f) - logf(logf(sqrtf(zx2 + zy2))) / logf(2.0f);
 	return (fract->get_color[fract->color_id](fract, iter));
 }

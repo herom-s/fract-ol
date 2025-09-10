@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:30:32 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/05 16:24:31 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/10 02:34:52 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static void	ft_clamp_color(int *r, int *g, int *b)
 		*b = 255;
 }
 
-int	ft_get_color_basic(t_fract *fract, double iter)
+int	ft_get_color_basic(t_fract *fract, float iter)
 {
-	double	t;
+	float	t;
 	int		r;
 	int		g;
 	int		b;
@@ -47,9 +47,9 @@ int	ft_get_color_basic(t_fract *fract, double iter)
 	return ((r << 16) | (g << 8) | b);
 }
 
-int	ft_get_color_psychedelic(t_fract *fract, double iter)
+int	ft_get_color_psychedelic(t_fract *fract, float iter)
 {
-	double	t;
+	float	t;
 	int		r;
 	int		g;
 	int		b;
@@ -57,17 +57,17 @@ int	ft_get_color_psychedelic(t_fract *fract, double iter)
 	if (iter >= fract->max_iter)
 		return (0x000000);
 	t = iter / fract->max_iter;
-	t = fmod(t + (fract->color_shift * 0.1), 1.0);
-	r = (int)(255 * sin(t * 16));
-	g = (int)(255 * sin(t * 13 + 2));
-	b = (int)(255 * sin(t * 17 + 4));
+	t = fmodf(t + (fract->color_shift * 0.1f), 1.0f);
+	r = (int)(255 * sinf(t * 16));
+	g = (int)(255 * sinf(t * 13 + 2));
+	b = (int)(255 * sinf(t * 17 + 4));
 	ft_clamp_color(&r, &g, &b);
 	return ((r << 16) | (g << 8) | b);
 }
 
-int	ft_get_color_iter_shifft(t_fract *fract, double iter)
+int	ft_get_color_iter_shifft(t_fract *fract, float iter)
 {
-	double	t;
+	float	t;
 	int		r;
 	int		g;
 	int		b;
@@ -75,7 +75,7 @@ int	ft_get_color_iter_shifft(t_fract *fract, double iter)
 	if (iter >= fract->max_iter)
 		return (0x000000);
 	t = iter / fract->max_iter;
-	t = fmod(t + (fract->color_shift * 0.1), 1.0);
+	t = fmodf(t + (fract->color_shift * 0.1f), 1.0f);
 	r = (int)(255 * t);
 	g = (int)(255 * t);
 	b = (int)(255 * t);

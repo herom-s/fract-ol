@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:32:19 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/05 13:48:06 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/10 02:35:16 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "libft.h"
 #include <stdlib.h>
 
-t_fract	*ft_init_fract(t_window *window, t_fract_type type, double px,
-		double py)
+t_fract	*ft_init_fract(t_window *window, t_fract_type type, float px,
+		float py)
 {
 	t_fract	*fract;
 
@@ -28,7 +28,7 @@ t_fract	*ft_init_fract(t_window *window, t_fract_type type, double px,
 	fract->max_iter = 100;
 	fract->width = window->width;
 	fract->height = window->height;
-	fract->zoom = 1.0;
+	fract->zoom = 1.0f;
 	fract->type = type;
 	fract->px = px;
 	fract->py = py;
@@ -47,9 +47,9 @@ void	*ft_detroy_fract(t_fract *fract)
 
 void	ft_calc_coordinate(t_fract *fract, t_window *window, int x, int y)
 {
-	fract->pcx = (x - window->width / 2.0) * (4.0 / fract->zoom) / window->width
+	fract->pcx = (x - window->width / 2.0f) * (4.0f / fract->zoom) / window->width
 		+ fract->x_offset;
-	fract->pcy = -(y - window->height / 2.0) * (4.0 / fract->zoom)
+	fract->pcy = -(y - window->height / 2.0f) * (4.0f / fract->zoom)
 		/ window->height + fract->y_offset;
 }
 

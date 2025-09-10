@@ -6,27 +6,27 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:35:50 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/10 01:08:53 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/10 02:42:08 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol_bonus.h"
 #include <stdlib.h>
 
-static void	ft_zoom_in_pos(t_env *env, int x, int y, double zoom)
+static void	ft_zoom_in_pos(t_env *env, int x, int y, float zoom)
 {
-	double	mpx;
-	double	mpy;
+	float	mpx;
+	float	mpy;
 
 	env->window->need_redraw = 1;
-	mpx = env->fract->x_offset + (x - env->window->width / 2.0) * (4.0
+	mpx = env->fract->x_offset + (x - env->window->width / 2.0f) * (4.0f
 			/ env->fract->zoom) / env->window->width;
-	mpy = env->fract->y_offset - (y - env->window->height / 2.0) * (4.0
+	mpy = env->fract->y_offset - (y - env->window->height / 2.0f) * (4.0f
 			/ env->fract->zoom) / env->window->height;
 	env->fract->zoom *= zoom;
-	env->fract->x_offset = mpx - (x - env->window->width / 2.0) * (4.0
+	env->fract->x_offset = mpx - (x - env->window->width / 2.0f) * (4.0f
 			/ env->fract->zoom) / env->window->width;
-	env->fract->y_offset = mpy + (y - env->window->height / 2.0) * (4.0
+	env->fract->y_offset = mpy + (y - env->window->height / 2.0f) * (4.0f
 			/ env->fract->zoom) / env->window->height;
 	ft_calc_coordinate(env->fract, env->window, x, y);
 }
@@ -34,9 +34,9 @@ static void	ft_zoom_in_pos(t_env *env, int x, int y, double zoom)
 int	ft_mouse_handler(int mousecode, int x, int y, t_env *env)
 {
 	if (mousecode == 4)
-		ft_zoom_in_pos(env, x, y, 1.1);
+		ft_zoom_in_pos(env, x, y, 1.1f);
 	else if (mousecode == 5)
-		ft_zoom_in_pos(env, x, y, 0.9);
+		ft_zoom_in_pos(env, x, y, 0.9f);
 	if (env->window->need_redraw)
 	{
 		ft_calc_fract(env->fract, env->window);
@@ -61,9 +61,9 @@ int	ft_mouse_move_handler(int x, int y, t_env *env)
 		&& env->fract->need_zoom == 0)
 	{
 		env->window->need_redraw = 1;
-		env->fract->px = (env->window->mx - env->window->width / 2.0) * (4.0
+		env->fract->px = (env->window->mx - env->window->width / 2.0f) * (4.0f
 				/ env->fract->zoom) / env->window->width;
-		env->fract->py = (env->window->my - env->window->height / 2.0) * (4.0
+		env->fract->py = (env->window->my - env->window->height / 2.0f) * (4.0f
 				/ env->fract->zoom) / env->window->height;
 		if (env->window->need_redraw)
 		{

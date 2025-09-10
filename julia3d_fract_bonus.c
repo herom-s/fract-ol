@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 19:39:49 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/10 01:54:20 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/10 02:46:49 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,54 +16,54 @@
 
 typedef struct s_camera
 {
-	double		rotation_x;
-	double		rotation_y;
-	double		distance;
+	float		rotation_x;
+	float		rotation_y;
+	float		distance;
 }				t_camera;
 
 typedef struct s_ray_data
 {
 	t_vec3		origin;
 	t_vec3		direction;
-	double		total_distance;
+	float		total_distance;
 	int			steps;
 }				t_ray_data;
 
-static t_vec3	ft_rotate_point(t_vec3 p, double rx, double ry)
+static t_vec3	ft_rotate_point(t_vec3 p, float rx, float ry)
 {
 	t_vec3	result;
-	double	temp_y;
-	double	temp_z;
+	float	temp_y;
+	float	temp_z;
 
-	temp_y = p.y * cos(rx) - p.z * sin(rx);
-	temp_z = p.y * sin(rx) + p.z * cos(rx);
+	temp_y = p.y * cosf(rx) - p.z * sinf(rx);
+	temp_z = p.y * sinf(rx) + p.z * cosf(rx);
 	p.y = temp_y;
 	p.z = temp_z;
-	result.x = p.x * cos(ry) + p.z * sin(ry);
+	result.x = p.x * cosf(ry) + p.z * sinf(ry);
 	result.y = p.y;
-	result.z = -p.x * sin(ry) + p.z * cos(ry);
+	result.z = -p.x * sinf(ry) + p.z * cosf(ry);
 	return (result);
 }
 
-static void	ft_init_ray_data(t_fract *fract, double x, double y,
+static void	ft_init_ray_data(t_fract *fract, float x, float y,
 		t_ray_data *ray)
 {
-	ray->origin.x = 0.0;
-	ray->origin.y = 0.0;
-	ray->origin.z = -4.0 / fract->zoom;
+	ray->origin.x = 0.0f;
+	ray->origin.y = 0.0f;
+	ray->origin.z = -4.0f / fract->zoom;
 	ray->direction.x = x;
 	ray->direction.y = y;
-	ray->direction.z = 1.0;
+	ray->direction.z = 1.0f;
 	ray->direction = ft_vec3_normalize(ray->direction);
-	ray->total_distance = 0.1;
+	ray->total_distance = 0.1f;
 	ray->steps = 0;
 }
 
 static int	ft_calculate_shading(t_fract *fract, int steps, int max_steps)
 {
-	double	iter;
+	float	iter;
 
-	iter = (double)fract->max_iter - ((double)steps / max_steps)
+	iter = (float)fract->max_iter - ((float)steps / max_steps)
 		* fract->max_iter;
 	return (fract->get_color[fract->color_id](fract, iter));
 }
@@ -72,11 +72,11 @@ static int	ft_ray_march(t_fract *fract, t_ray_data *ray)
 {
 	t_vec3	current_pos;
 	t_vec3	fractal_pos;
-	double	distance_to_surface;
+	float	distance_to_surface;
 	int		max_steps;
 
 	max_steps = fract->max_iter;
-	while (ray->steps < max_steps && ray->total_distance < 20.0)
+	while (ray->steps < max_steps && ray->total_distance < 20.0f)
 	{
 		current_pos = ft_vec3_add(ray->origin, ft_vec3_scale(ray->direction,
 					ray->total_distance));
@@ -86,15 +86,15 @@ static int	ft_ray_march(t_fract *fract, t_ray_data *ray)
 		fractal_pos = ft_rotate_point(fractal_pos, fract->x_rotation,
 				fract->y_rotation);
 		distance_to_surface = ft_julia3d_calc_dist(fract, fractal_pos);
-		if (distance_to_surface < 0.001)
+		if (distance_to_surface < 0.001f)
 			return (ft_calculate_shading(fract, ray->steps, max_steps));
-		ray->total_distance += distance_to_surface * 0.9;
+		ray->total_distance += distance_to_surface * 0.9f;
 		ray->steps++;
 	}
 	return (0);
 }
 
-int	ft_julia3d_calc_fract_points(t_fract *fract, double x, double y)
+int	ft_julia3d_calc_fract_points(t_fract *fract, float x, float y)
 {
 	t_ray_data	ray;
 

@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:05:37 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/10 01:59:28 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/10 02:24:39 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void						*ft_destroy_env(t_env *env);
 
 typedef struct s_window
 {
-	double					mx;
-	double					my;
+	float					mx;
+	float					my;
 	int						width;
 	int						height;
 	int						need_redraw;
@@ -73,11 +73,11 @@ void						ft_set_fract_draw(t_window *window, t_fract *fract);
 
 void						ft_draw_img_buffer(t_window *window);
 
-int							ft_get_color_basic(t_fract *fract, double iter);
+int							ft_get_color_basic(t_fract *fract, float iter);
 int							ft_get_color_psychedelic(t_fract *fract,
-								double iter);
+								float iter);
 int							ft_get_color_iter_shifft(t_fract *fract,
-								double iter);
+								float iter);
 
 int							**ft_alloc_color(t_window *window);
 void						ft_free_color(t_fract *fract);
@@ -93,52 +93,52 @@ typedef enum e_fract_type
 	JULIA3D_SET
 }							t_fract_type;
 
-typedef int					(*t_ft_get_color)(t_fract *fract, double iter);
+typedef int					(*t_ft_get_color)(t_fract *fract, float iter);
 
 typedef struct s_fract
 {
 	int						color_id;
-	double					color_shift;
+	float					color_shift;
 	int						need_zoom;
-	double					max_iter;
+	float					max_iter;
 	int						width;
 	int						height;
-	double					pcx;
-	double					pcy;
-	double					px;
-	double					py;
-	double					pz;
+	float					pcx;
+	float					pcy;
+	float					px;
+	float					py;
+	float					pz;
 	int						**color;
-	double					zoom;
-	double					x_offset;
-	double					y_offset;
-	double					z_offset;
-	double					power;
-	double					x_rotation;
-	double					y_rotation;
+	float					zoom;
+	float					x_offset;
+	float					y_offset;
+	float					z_offset;
+	float					power;
+	float					x_rotation;
+	float					y_rotation;
 	t_fract_type			type;
 	t_ft_get_color			get_color[MAX_COLORS];
 }							t_fract;
 
 t_fract						*ft_init_fract(t_window *window, t_fract_type type,
-								double px, double py);
+								float px, float py);
 void						*ft_detroy_fract(t_fract *fract);
 void						ft_calc_coordinate(t_fract *fract, t_window *window,
 								int x, int y);
 void						ft_calc_fract(t_fract *fract, t_window *window);
 int							ft_mandelbrot_calc_fract_points(t_fract *fract,
-								double x, double y);
-int							ft_julia_calc_fract_points(t_fract *fract, double x,
-								double y);
+								float x, float y);
+int							ft_julia_calc_fract_points(t_fract *fract, float x,
+								float y);
 int							ft_burning_ship_calc_fract_points(t_fract *fract,
-								double x, double y);
-double						ft_mandelbrot3d_calc_dist(t_fract *fract, t_vec3 p);
+								float x, float y);
+float						ft_mandelbrot3d_calc_dist(t_fract *fract, t_vec3 p);
 int							ft_mandelbrot3d_calc_fract_points(t_fract *fract,
-								double x, double y);
+								float x, float y);
 
 int							ft_julia3d_calc_fract_points(t_fract *fract,
-								double x, double y);
-double						ft_julia3d_calc_dist(t_fract *fract, t_vec3 p);
+								float x, float y);
+float						ft_julia3d_calc_dist(t_fract *fract, t_vec3 p);
 
 void						ft_print_arg_help(void);
 int							ft_check_args(t_env *env, int argc, char **argv);
