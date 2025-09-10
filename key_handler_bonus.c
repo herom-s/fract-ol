@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:34:46 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/09 18:51:54 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/10 01:39:26 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,6 @@ static void	ft_change_iter_handler(int keycode, t_env *env)
 		env->fract->max_iter -= 10;
 		if (env->fract->max_iter <= 0)
 			env->fract->max_iter = 10;
-	}
-}
-
-static void	ft_change_fract_handler(int keycode, t_env *env)
-{
-	if (keycode == 49)
-	{
-		env->window->need_redraw = 1;
-		env->fract->type = MALDEBROT_SET;
-	}
-	else if (keycode == 50)
-	{
-		env->window->need_redraw = 1;
-		env->fract->need_zoom = 0;
-		env->fract->type = JULIA_SET;
-		env->fract->px = (env->window->mx - env->window->width / 2.0) * (4.0
-				/ env->fract->zoom) / env->window->width;
-		env->fract->py = (env->window->my - env->window->height / 2.0) * (4.0
-				/ env->fract->zoom) / env->window->height;
-	}
-	else if (keycode == 51)
-	{
-		env->window->need_redraw = 1;
-		env->fract->type = BURNING_SHIP_SET;
 	}
 }
 

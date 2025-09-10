@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:05:37 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/10 00:16:25 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/10 01:59:28 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ int							ft_args_handler(t_env *env, int argc, char **argv);
 
 void						*ft_print_error(char *msg);
 
+void						ft_change_fract_handler(int keycode, t_env *env);
 void						ft_rotate_3dfract_handler(int keycode, t_env *env);
 
 #endif

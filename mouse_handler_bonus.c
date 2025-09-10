@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:35:50 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/04 19:36:00 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/10 01:08:53 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	ft_mouse_move_handler(int x, int y, t_env *env)
 	env->window->my = y;
 	last_x = x;
 	last_y = y;
-	if (env->fract->type == JULIA_SET && env->fract->need_zoom == 0)
+	if ((env->fract->type == JULIA_SET || env->fract->type == JULIA3D_SET)
+		&& env->fract->need_zoom == 0)
 	{
 		env->window->need_redraw = 1;
 		env->fract->px = (env->window->mx - env->window->width / 2.0) * (4.0

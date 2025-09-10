@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 16:17:32 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/09 18:55:46 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/10 01:53:21 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	ft_ray_march(t_fract *fract, t_ray_data *ray)
 	double	distance_to_surface;
 	int		max_steps;
 
-	max_steps = 100;
+	max_steps = fract->max_iter;
 	while (ray->steps < max_steps && ray->total_distance < 20.0)
 	{
 		current_pos = ft_vec3_add(ray->origin, ft_vec3_scale(ray->direction,

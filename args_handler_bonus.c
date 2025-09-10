@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:31:07 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/10 00:18:39 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/10 01:09:39 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	ft_set_fract(t_fract_type type, t_env *env, char **argv)
 		env->fract->px = ft_atod(argv[2]);
 		env->fract->py = ft_atod(argv[3]);
 		env->fract->pz = ft_atod(argv[4]);
+		env->fract->need_zoom = 1;
 	}
 	return (1);
 }
