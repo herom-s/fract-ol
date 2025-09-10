@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:31:07 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/05 16:01:39 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/09 19:34:01 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,18 @@ static void	ft_print_arg_help(void)
 	ft_printf("  mandelbrot    Generate Mandelbrot set\n");
 	ft_printf("  julia         Generate Julia set \
 (requires c_real c_imag parameters)\n");
-	ft_printf("  burning_ship  Generate Burning Ship set\n");
+	ft_printf("  mandelbrot3d  Generate 3D Mandelbrot set \
+(requires power parameter)\n");
+	ft_printf("  julia3d       Generate 3D Julia set \
+(requires c_x/c_real c_y/c_imag c_z parameters)\n");
 	ft_printf("OPTIONS:\n");
 	ft_printf("  -h, --help    Show this help message\n");
 	ft_printf("EXAMPLES:\n");
 	ft_printf("  fractol mandelbrot\n");
 	ft_printf("  fractol julia -0.7 0.27015\n");
 	ft_printf("  fractol burning_ship\n");
+	ft_printf("  fractol mandelbrot3d 2.0\n");
+	ft_printf("  fractol julia3d -0.7 0.27015 0.0\n");
 	ft_printf("CONTROLS:\n");
 	ft_printf("  Mouse wheel   Zoom in/out\n");
 	ft_printf("  ESC           Quit\n");
@@ -42,6 +47,10 @@ static void	ft_print_arg_help(void)
 	ft_printf(" ↓|s            Move down in the fractal\n");
 	ft_printf(" →|d            Move right in the fractal\n");
 	ft_printf(" ←|a            Move left in the fractal\n");
+	ft_printf("  u             Rotate up the 3D fractal\n");
+	ft_printf("  d             Rotate down the 3D fractal\n");
+	ft_printf("  h             Rotate left the 3D fractal\n");
+	ft_printf("  k             Rotate right the 3D fractal\n");
 }
 
 int	ft_check_args(t_env *env, int argc, char **argv)
@@ -61,7 +70,9 @@ int	ft_check_args(t_env *env, int argc, char **argv)
 		return (0);
 	}
 	if (ft_strcmp(argv[1], "mandelbrot") != 0 && ft_strcmp(argv[1],
-			"julia") != 0 && ft_strcmp(argv[1], "burning_ship"))
+			"julia") != 0 && ft_strcmp(argv[1], "burning_ship")
+		&& ft_strcmp(argv[1], "mandelbrot3d") != 0 && ft_strcmp(argv[1],
+			"julia3d") != 0)
 	{
 		ft_destroy_env(env);
 		ft_print_arg_help();
@@ -78,7 +89,7 @@ static int	ft_check_args_julia(t_env *env, int argc, char **argv)
 		ft_destroy_env(env);
 		ft_print_arg_help();
 		ft_print_error("Error: Julia set requires exactly 2 \
-paraeters (c_real c_imag)\n");
+parameters (c_real c_imag)\n");
 		return (0);
 	}
 	if (!ft_isfloat(argv[2]) || !ft_isfloat(argv[3]))
@@ -87,6 +98,48 @@ paraeters (c_real c_imag)\n");
 		ft_print_arg_help();
 		ft_print_error("Error: Julia parameters must be \
 valid floating-point numbers\n");
+		return (0);
+	}
+	return (1);
+}
+
+static int	ft_check_args_julia3d(t_env *env, int argc, char **argv)
+{
+	if (argc != 5)
+	{
+		ft_destroy_env(env);
+		ft_print_arg_help();
+		ft_print_error("Error: Julia3D set requires exactly 3 \
+parameters (c_x c_y c_z)\n");
+		return (0);
+	}
+	if (!ft_isfloat(argv[2]) || !ft_isfloat(argv[3]) || !ft_isfloat(argv[4]))
+	{
+		ft_destroy_env(env);
+		ft_print_arg_help();
+		ft_print_error("Error: Julia3D parameters must be \
+valid floating-point numbers\n");
+		return (0);
+	}
+	return (1);
+}
+
+static int	ft_check_args_mandelbrot3d(t_env *env, int argc, char **argv)
+{
+	if (argc != 3)
+	{
+		ft_destroy_env(env);
+		ft_print_arg_help();
+		ft_print_error("Error: Mandelbrot3D set requires exactly 1 \
+parameter (power)\n");
+		return (0);
+	}
+	if (!ft_isnumber(argv[2]))
+	{
+		ft_destroy_env(env);
+		ft_print_arg_help();
+		ft_print_error("Error: Mandelbrot3D parameters must be \
+a valid number\n");
 		return (0);
 	}
 	return (1);
@@ -113,6 +166,23 @@ int	ft_args_handler(t_env *env, int argc, char **argv)
 	{
 		env->fract->type = BURNING_SHIP_SET;
 		return (1);
+	}
+	else if (ft_strcmp(argv[1], "mandelbrot3d") == 0)
+	{
+		if (!ft_check_args_mandelbrot3d(env, argc, argv))
+			return (0);
+		env->fract->type = MALDEBROT3D_SET;
+		env->fract->power = ft_atod(argv[2]);
+		return (1);
+	}
+	else if (ft_strcmp(argv[1], "julia3d") == 0)
+	{
+		if (!ft_check_args_julia3d(env, argc, argv))
+			return (0);
+		env->fract->type = JULIA3D_SET;
+		env->fract->px = ft_atod(argv[2]);
+		env->fract->py = ft_atod(argv[3]);
+		env->fract->pz = ft_atod(argv[4]);
 	}
 	return (0);
 }

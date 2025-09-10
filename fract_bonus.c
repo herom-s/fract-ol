@@ -70,6 +70,16 @@ static void	ft_calc_pixel_color(t_fract *fract, int x, int y)
 		fract->color[x][y] = ft_burning_ship_calc_fract_points(fract,
 				fract->pcx, fract->pcy);
 	}
+	else if (fract->type == MALDEBROT3D_SET)
+	{
+		fract->color[x][y] = ft_mandelbrot3d_calc_fract_points(fract,
+				fract->pcx, fract->pcy);
+	}
+	else if (fract->type == JULIA3D_SET)
+	{
+		fract->color[x][y] = ft_julia3d_calc_fract_points(fract,
+				fract->pcx, fract->pcy);
+	}
 }
 
 void	ft_calc_fract(t_fract *fract, t_window *window)

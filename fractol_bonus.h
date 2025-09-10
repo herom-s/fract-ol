@@ -6,12 +6,14 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:05:37 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/05 16:12:17 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:53:06 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_BONUS_H
 # define FRACTOL_BONUS_H
+
+# include "fractol_vec_math_bonus.h"
 
 # define MAX_COLORS 3
 
@@ -86,7 +88,9 @@ typedef enum e_fract_type
 {
 	MALDEBROT_SET,
 	JULIA_SET,
-	BURNING_SHIP_SET
+	BURNING_SHIP_SET,
+	MALDEBROT3D_SET,
+	JULIA3D_SET
 }							t_fract_type;
 
 typedef int					(*t_ft_get_color)(t_fract *fract, double iter);
@@ -103,10 +107,15 @@ typedef struct s_fract
 	double					pcy;
 	double					px;
 	double					py;
+	double					pz;
 	int						**color;
 	double					zoom;
 	double					x_offset;
 	double					y_offset;
+	double					z_offset;
+	double					power;
+	double					x_rotation;
+	double					y_rotation;
 	t_fract_type			type;
 	t_ft_get_color			get_color[MAX_COLORS];
 }							t_fract;
@@ -123,9 +132,19 @@ int							ft_julia_calc_fract_points(t_fract *fract, double x,
 								double y);
 int							ft_burning_ship_calc_fract_points(t_fract *fract,
 								double x, double y);
+double						ft_mandelbrot3d_calc_dist(t_fract *fract, t_vec3 p);
+int							ft_mandelbrot3d_calc_fract_points(t_fract *fract,
+								double x, double y);
+
+int							ft_julia3d_calc_fract_points(t_fract *fract,
+								double x, double y);
+double						ft_julia3d_calc_dist(t_fract *fract, t_vec3 p);
 
 int							ft_check_args(t_env *env, int argc, char **argv);
 int							ft_args_handler(t_env *env, int argc, char **argv);
 
 void						*ft_print_error(char *msg);
+
+void						ft_rotate_3dfract_handler(int keycode, t_env *env);
+
 #endif

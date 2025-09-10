@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:34:46 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/05 19:02:11 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:51:54 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int	ft_key_handler(int keycode, t_env *env)
 	ft_change_fract_handler(keycode, env);
 	ft_change_fract_color_shift(keycode, env);
 	ft_move_in_fract_handler(keycode, env);
+	ft_rotate_3dfract_handler(keycode, env);
 	if (env->window->need_redraw)
 	{
 		ft_calc_fract(env->fract, env->window);

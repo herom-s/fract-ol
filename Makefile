@@ -6,7 +6,7 @@
 #    By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:35:18 by hermarti          #+#    #+#              #
-#    Updated: 2025/09/05 13:49:23 by hermarti         ###   ########.fr        #
+#    Updated: 2025/09/09 21:29:16 by hermarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRCS_BONUS = main_bonus.c \
 	   color_bonus.c \
 	   window_bonus.c \
 	   key_handler_bonus.c \
+	   key_handler_util_bonus.c \
 	   mouse_handler_bonus.c \
 	   img_buffer_bonus.c \
 	   args_handler_bonus.c \
@@ -49,10 +50,15 @@ SRCS_BONUS = main_bonus.c \
 	   fract_util_bonus.c \
 	   mandelbrot_fract_bonus.c \
 	   julia_fract_bonus.c \
-	   burning_ship_fract_bonus.c
+	   burning_ship_fract_bonus.c \
+	   mandelbrot3d_fract_bonus.c \
+	   mandelbrot3d_fract_util_bonus.c \
+	   julia3d_fract_bonus.c \
+	   julia3d_fract_util_bonus.c \
+	   vec_math_bonus.c
 
 INC = fractol.h
-INC_BONUS = fractol_bonus.h
+INC_BONUS = fractol_bonus.h fractol_vec_math_bonus.h
 
 LIBFT_INC := $(LIBFT_DIR)inc/
 MLX_INC := $(MLX_DIR)
@@ -60,7 +66,7 @@ MLX_INC := $(MLX_DIR)
 DEPS := $(LIBFT_LIB) $(MLX_LIB) -lXext -lX11 -lm
 
 CC = cc
-CFLAGS = -I$(MLX_INC) -I$(LIBFT_INC) -Wall -Wextra -Werror
+CFLAGS = -I$(MLX_INC) -I$(LIBFT_INC) -Wall -Wextra -Werror -O3
 
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
