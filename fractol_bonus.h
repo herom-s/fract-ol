@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:05:37 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/09 18:53:06 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/10 00:16:25 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,14 @@ int							ft_julia3d_calc_fract_points(t_fract *fract,
 								double x, double y);
 double						ft_julia3d_calc_dist(t_fract *fract, t_vec3 p);
 
+void						ft_print_arg_help(void);
 int							ft_check_args(t_env *env, int argc, char **argv);
+int							ft_check_args_julia(t_env *env, int argc,
+								char **argv);
+int							ft_check_args_julia3d(t_env *env, int argc,
+								char **argv);
+int							ft_check_args_mandelbrot3d(t_env *env, int argc,
+								char **argv);
 int							ft_args_handler(t_env *env, int argc, char **argv);
 
 void						*ft_print_error(char *msg);

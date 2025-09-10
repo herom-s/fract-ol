@@ -6,7 +6,7 @@
 #    By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:35:18 by hermarti          #+#    #+#              #
-#    Updated: 2025/09/09 21:29:16 by hermarti         ###   ########.fr        #
+#    Updated: 2025/09/10 00:42:51 by hermarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,8 @@ SRCS_BONUS = main_bonus.c \
 	   mouse_handler_bonus.c \
 	   img_buffer_bonus.c \
 	   args_handler_bonus.c \
+	   args_handler_help_bonus.c \
+	   args_handler_util_bonus.c \
 	   fract_bonus.c \
 	   fract_util_bonus.c \
 	   mandelbrot_fract_bonus.c \
@@ -66,7 +68,7 @@ MLX_INC := $(MLX_DIR)
 DEPS := $(LIBFT_LIB) $(MLX_LIB) -lXext -lX11 -lm
 
 CC = cc
-CFLAGS = -I$(MLX_INC) -I$(LIBFT_INC) -Wall -Wextra -Werror -O3
+CFLAGS = -I$(MLX_INC) -I$(LIBFT_INC) -Wall -Wextra -Werror -O3 -ffast-math
 
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
