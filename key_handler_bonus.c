@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "fractol_bonus.h"
+#include "libft.h"
 
 static void	ft_change_iter_handler(int keycode, t_env *env)
 {
@@ -70,6 +71,20 @@ static void	ft_move_in_fract_handler(int keycode, t_env *env)
 	}
 }
 
+static void	ft_reset_fract_handler(int keycode, t_env *env)
+{
+	if (keycode == 122)
+	{
+		env->window->need_redraw = 1;
+		env->fract->zoom = 1.0f;
+		env->fract->x_offset = 0.0f;
+		env->fract->y_offset = 0.0f;
+		env->fract->z_offset = 0.0f;
+		env->fract->x_rotation = 0.0f;
+		env->fract->y_rotation = 0.0f;
+	}
+}
+
 int	ft_key_handler(int keycode, t_env *env)
 {
 	if (keycode == 65307)
@@ -79,6 +94,7 @@ int	ft_key_handler(int keycode, t_env *env)
 		env->window->need_redraw = 1;
 		env->fract->color_id = (env->fract->color_id + 1) % MAX_COLORS;
 	}
+	ft_reset_fract_handler(keycode, env);
 	ft_change_iter_handler(keycode, env);
 	ft_change_fract_handler(keycode, env);
 	ft_change_fract_color_shift(keycode, env);

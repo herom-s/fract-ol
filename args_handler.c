@@ -29,6 +29,7 @@ static void	ft_print_arg_help(void)
 	ft_printf("CONTROLS:\n");
 	ft_printf("  Mouse wheel   Zoom in/out\n");
 	ft_printf("  ESC           Quit\n");
+	ft_printf("  Z             Reset fractal view\n");
 	ft_printf("  Q             Change Fractal color\n");
 	ft_printf("  +             Raise the number of iterations by 10\n");
 	ft_printf("  -             Decrease the number of iterations by 10\n");

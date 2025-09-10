@@ -45,6 +45,7 @@ static void	ft_print_controls(void)
 	ft_printf("CONTROLS:\n");
 	ft_printf("  Mouse wheel   Zoom in/out\n");
 	ft_printf("  ESC           Quit\n");
+	ft_printf("  Z             Reset fractal view\n");
 	ft_printf("  Q             Change Fractal color\n");
 	ft_printf("  E             Raise Fractal color shift\n");
 	ft_printf("  R             Decrease Fractal color shift\n");
@@ -52,14 +53,14 @@ static void	ft_print_controls(void)
 	ft_printf("  2             Change Fractal to Julia\n");
 	ft_printf("  3             Change Fractal to Burning Ship\n");
 	ft_printf("  +             Raise the number of iterations by 10\n");
-	ft_printf(" ↑|w            Move up in the fractal\n");
-	ft_printf(" ↓|s            Move down in the fractal\n");
-	ft_printf(" →|d            Move right in the fractal\n");
-	ft_printf(" ←|a            Move left in the fractal\n");
-	ft_printf("  u             Rotate up the 3D fractal\n");
-	ft_printf("  d             Rotate down the 3D fractal\n");
-	ft_printf("  h             Rotate left the 3D fractal\n");
-	ft_printf("  k             Rotate right the 3D fractal\n");
+	ft_printf(" ↑|W            Move up in the fractal\n");
+	ft_printf(" ↓|S            Move down in the fractal\n");
+	ft_printf(" →|D            Move right in the fractal\n");
+	ft_printf(" ←|A            Move left in the fractal\n");
+	ft_printf("  U             Rotate up the 3D fractal\n");
+	ft_printf("  D             Rotate down the 3D fractal\n");
+	ft_printf("  H             Rotate left the 3D fractal\n");
+	ft_printf("  K             Rotate right the 3D fractal\n");
 }
 
 void	ft_print_arg_help(void)
