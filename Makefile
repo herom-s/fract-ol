@@ -6,7 +6,7 @@
 #    By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:35:18 by hermarti          #+#    #+#              #
-#    Updated: 2025/09/10 00:42:51 by hermarti         ###   ########.fr        #
+#    Updated: 2025/09/10 03:13:16 by hermarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,12 @@ MLX_INC := $(MLX_DIR)
 DEPS := $(LIBFT_LIB) $(MLX_LIB) -lXext -lX11 -lm
 
 CC = cc
-CFLAGS = -I$(MLX_INC) -I$(LIBFT_INC) -Wall -Wextra -Werror -O3 -ffast-math
+CFLAGS = -I$(MLX_INC) -I$(LIBFT_INC) -Wall -Wextra -Werror
+
+OPT ?= 0
+ifeq ($(OPT), 1)
+	CFLAGS += -O3 -ffast-math
+endif
 
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)

@@ -6,7 +6,7 @@
 /*   By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 19:32:19 by hermarti          #+#    #+#             */
-/*   Updated: 2025/09/10 02:35:16 by hermarti         ###   ########.fr       */
+/*   Updated: 2025/09/10 03:06:46 by hermarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-t_fract	*ft_init_fract(t_window *window, t_fract_type type, float px,
-		float py)
+t_fract	*ft_init_fract(t_window *window, t_fract_type type, float px, float py)
 {
 	t_fract	*fract;
 
@@ -47,8 +46,8 @@ void	*ft_detroy_fract(t_fract *fract)
 
 void	ft_calc_coordinate(t_fract *fract, t_window *window, int x, int y)
 {
-	fract->pcx = (x - window->width / 2.0f) * (4.0f / fract->zoom) / window->width
-		+ fract->x_offset;
+	fract->pcx = (x - window->width / 2.0f) * (4.0f / fract->zoom)
+		/ window->width + fract->x_offset;
 	fract->pcy = -(y - window->height / 2.0f) * (4.0f / fract->zoom)
 		/ window->height + fract->y_offset;
 }
@@ -77,8 +76,8 @@ static void	ft_calc_pixel_color(t_fract *fract, int x, int y)
 	}
 	else if (fract->type == JULIA3D_SET)
 	{
-		fract->color[x][y] = ft_julia3d_calc_fract_points(fract,
-				fract->pcx, fract->pcy);
+		fract->color[x][y] = ft_julia3d_calc_fract_points(fract, fract->pcx,
+				fract->pcy);
 	}
 }
 
