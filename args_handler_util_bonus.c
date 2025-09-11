@@ -47,6 +47,7 @@ int	ft_check_args_count(t_fract_type type, t_env *env, int argc)
 	if (argc != 2)
 	{
 		ft_destroy_env(env);
+		ft_print_arg_help();
 		if (type == MALDEBROT_SET)
 			ft_print_error("Error: Mandelbrot set requires \
 exactly one parameter\n");
