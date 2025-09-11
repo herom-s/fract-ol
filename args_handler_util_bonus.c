@@ -102,5 +102,13 @@ parameter (power)\n");
 a valid number\n");
 		return (0);
 	}
+	if (ft_atof(argv[2]) <= 1)
+	{
+		ft_destroy_env(env);
+		ft_print_arg_help();
+		ft_print_error("Error: Mandelbrot3D parameters must be \
+a number greater than one\n");
+		return (0);
+	}
 	return (1);
 }
