@@ -94,7 +94,7 @@ int	ft_check_args_mandelbrot3d(t_env *env, int argc, char **argv)
 parameter (power)\n");
 		return (0);
 	}
-	if (!ft_isnumber(argv[2]))
+	if (!ft_isfloat(argv[2]))
 	{
 		ft_destroy_env(env);
 		ft_print_arg_help();
