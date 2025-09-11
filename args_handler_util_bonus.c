@@ -42,6 +42,22 @@ int	ft_check_args(t_env *env, int argc, char **argv)
 	return (1);
 }
 
+int	ft_check_args_count(t_fract_type type, t_env *env, int argc)
+{
+	if (argc != 2)
+	{
+		ft_destroy_env(env);
+		if (type == MALDEBROT_SET)
+			ft_print_error("Error: Mandelbrot set requires \
+exactly one parameter\n");
+		else if (type == BURNING_SHIP_SET)
+			ft_print_error("Error: Burning ship set requires \
+exactly one parameter\n");
+		return (0);
+	}
+	return (1);
+}
+
 int	ft_check_args_julia(t_env *env, int argc, char **argv)
 {
 	if (argc != 4)

@@ -142,6 +142,7 @@ float						ft_julia3d_calc_dist(t_fract *fract, t_vec3 p);
 
 void						ft_print_arg_help(void);
 int							ft_check_args(t_env *env, int argc, char **argv);
+int							ft_check_args_count(t_fract_type type, t_env *env, int argc);
 int							ft_check_args_julia(t_env *env, int argc,
 								char **argv);
 int							ft_check_args_julia3d(t_env *env, int argc,

@@ -69,7 +69,7 @@ static int	ft_check_args_julia(t_env *env, int argc, char **argv)
 		ft_destroy_env(env);
 		ft_print_arg_help();
 		ft_print_error("Error: Julia set requires exactly 2 \
-paraeters (c_real c_imag)\n");
+parameters (c_real c_imag)\n");
 		return (0);
 	}
 	if (!ft_isfloat(argv[2]) || !ft_isfloat(argv[3]))
@@ -83,10 +83,24 @@ valid floating-point numbers\n");
 	return (1);
 }
 
+static int	ft_check_argc_mandelbrot(t_env *env, int argc)
+{
+	if (argc != 2)
+	{
+		ft_destroy_env(env);
+		ft_print_arg_help();
+		ft_print_error("Error: Mandelbrot set requires exactly 1 parameter\n");
+		return (0);
+	}
+	return (1);
+}
+
 int	ft_args_handler(t_env *env, int argc, char **argv)
 {
 	if (ft_strcmp(argv[1], "mandelbrot") == 0)
 	{
+		if (!ft_check_argc_mandelbrot(env, argc))
+			return (0);
 		env->fract->type = MALDEBROT_SET;
 		return (1);
 	}

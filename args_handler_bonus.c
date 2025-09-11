@@ -36,12 +36,14 @@ static int	ft_set_fract(t_fract_type type, t_env *env, char **argv)
 
 int	ft_args_handler(t_env *env, int argc, char **argv)
 {
-	if (ft_strcmp(argv[1], "mandelbrot") == 0)
+	if ((ft_strcmp(argv[1], "mandelbrot") == 0)
+		&& ft_check_args_count(MALDEBROT_SET, env, argc))
 		return (ft_set_fract(MALDEBROT_SET, env, argv));
 	if (ft_strcmp(argv[1], "julia") == 0 && ft_check_args_julia(env, argc,
 			argv))
 		return (ft_set_fract(JULIA_SET, env, argv));
-	if (ft_strcmp(argv[1], "burning_ship") == 0)
+	if ((ft_strcmp(argv[1], "burning_ship") == 0)
+		&& ft_check_args_count(BURNING_SHIP_SET, env, argc))
 		return (ft_set_fract(BURNING_SHIP_SET, env, argv));
 	if (ft_strcmp(argv[1], "mandelbrot3d") == 0
 		&& ft_check_args_mandelbrot3d(env, argc, argv))
