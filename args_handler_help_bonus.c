@@ -52,7 +52,10 @@ static void	ft_print_controls(void)
 	ft_printf("  1             Change Fractal to Mandelbrot\n");
 	ft_printf("  2             Change Fractal to Julia\n");
 	ft_printf("  3             Change Fractal to Burning Ship\n");
+	ft_printf("  4             Change Fractal to Mandelbrot3d\n");
+	ft_printf("  5             Change Fractal to Julia3d\n");
 	ft_printf("  +             Raise the number of iterations by 10\n");
+	ft_printf("  -             Decrease the number of iterations by 10\n");
 	ft_printf(" ↑|W            Move up in the fractal\n");
 	ft_printf(" ↓|S            Move down in the fractal\n");
 	ft_printf(" →|D            Move right in the fractal\n");
