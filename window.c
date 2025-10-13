@@ -39,7 +39,7 @@ t_window	*ft_init_window(int width, int height, char *window_name)
 void	*ft_destroy_window(t_window *window)
 {
 	ft_destroy_img_buffer(window);
-	mlx_destroy_window(window->mlx, window->x_window);
+//	mlx_destroy_window(window->mlx, window->x_window);
 	mlx_destroy_display(window->mlx);
 	free(window->mlx);
 	free(window);

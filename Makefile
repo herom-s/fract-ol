@@ -6,7 +6,7 @@
 #    By: hermarti <hermarti@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/21 09:35:18 by hermarti          #+#    #+#              #
-#    Updated: 2025/09/10 03:13:16 by hermarti         ###   ########.fr        #
+#    Updated: 2025/10/13 14:37:57 by hermarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ LIBFT_DIR := libft/
 LIBFT := $(LIBFT_DIR)libft.a
 LIBFT_LIB := $(LIBFT)
 
-MLX_DIR := minilibx/
-MLX := $(MLX_DIR)minilibx.a
-MLX_LIB := -L$(MLX_DIR) -lmlx
+SLX_DIR := SampaLX/
+SLX := $(SLX_DIR)minilibx.a
+SLX_LIB := -L$(SLX_DIR) $(SLX)
 
 SRCS = main.c \
 	   env.c \
@@ -63,12 +63,12 @@ INC = fractol.h
 INC_BONUS = fractol_bonus.h fractol_vec_math_bonus.h
 
 LIBFT_INC := $(LIBFT_DIR)inc/
-MLX_INC := $(MLX_DIR)
+SLX_INC := $(SLX_DIR)includes/
 
-DEPS := $(LIBFT_LIB) $(MLX_LIB) -lXext -lX11 -lm
+DEPS := $(LIBFT_LIB) $(SLX_LIB) -lGL -lglfw -lm
 
 CC = cc
-CFLAGS = -I$(MLX_INC) -I$(LIBFT_INC) -Wall -Wextra -Werror
+CFLAGS = -I$(SLX_INC) -I$(LIBFT_INC) -Wall -Wextra -Werror
 
 OPT ?= 0
 ifeq ($(OPT), 1)
@@ -88,13 +88,13 @@ RM = rm -f
 
 .PHONY: all clean fclean re
 
-all: $(LIBFT) $(MLX) $(NAME)
+all: $(LIBFT) $(SLX) $(NAME)
 
 $(LIBFT):
-	$(MAKE) -C libft
+	$(MAKE) -C $(LIBFT_DIR)
 
-$(MLX):
-	$(MAKE) -C minilibx
+$(SLX):
+	$(MAKE) -C $(SLX_DIR)
 
 $(OBJS): %.o: %.c $(INC)
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -102,19 +102,19 @@ $(OBJS): %.o: %.c $(INC)
 $(OBJS_BONUS): %.o: %.c $(INC_BONUS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(LIBFT) $(MLX) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_LIB) -lXext -lX11 -lm -o $@
+$(NAME): $(LIBFT) $(SLX) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(SLX_LIB) $(DEPS) -o $@
 
-bonus: $(LIBFT) $(MLX) .bonus
+bonus: $(LIBFT) $(SLX) .bonus
 	@:
 
 .bonus: $(OBJS_BONUS)
-	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT) $(MLX_LIB) -lXext -lX11 -lm -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT) $(SLX_LIB) $(DEPS) -o $(NAME)
 	@touch .bonus
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
-	$(MAKE) -C $(MLX_DIR) clean
+	$(MAKE) -C $(SLX_DIR) clean
 	$(RM) $(OBJS)
 	$(RM) $(OBJS_BONUS)
 
