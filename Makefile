@@ -103,13 +103,13 @@ $(OBJS_BONUS): %.o: %.c $(INC_BONUS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_LIB) -lXext -lX11 -lm -o $@
+	$(CC) $(CFLAGS) $(OBJS) $(DEPS) -o $@
 
 bonus: $(LIBFT) $(MLX) .bonus
 	@:
 
 .bonus: $(OBJS_BONUS)
-	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT) $(MLX_LIB) -lXext -lX11 -lm -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS_BONUS) $(DEPS) -o $(NAME)
 	@touch .bonus
 
 clean:
