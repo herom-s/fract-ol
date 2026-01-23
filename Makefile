@@ -17,7 +17,7 @@ LIBFT := $(LIBFT_DIR)libft.a
 LIBFT_LIB := $(LIBFT)
 
 SLX_DIR := SampaLX/
-SLX := $(SLX_DIR)minilibx.a
+SLX := $(SLX_DIR)libmlx.a
 SLX_LIB := -L$(SLX_DIR) $(SLX)
 
 SRCS = main.c \
