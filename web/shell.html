@@ -32,6 +32,8 @@
       z-index: 2;
     }
     #bar strong { color: #3FB950; letter-spacing: 0.04em; }
+    #bar a.home { color: #9a9aa5; text-decoration: none; }
+    #bar a.home:hover { color: #3FB950; }
     #bar label { display: inline-flex; align-items: center; gap: 6px; color: #9a9aa5; }
     select, input[type=number] {
       background: #1a1a21;
@@ -75,6 +77,7 @@
 </head>
 <body>
   <div id="bar">
+    <a class="home" href="../../">&larr; Portfolio</a>
     <strong>fract-ol</strong>
     <label for="fractal">Fractal</label>
     <select id="fractal">
