@@ -11,12 +11,59 @@
       padding: 0;
       height: 100%;
       background: #000;
+      color: #e6e6ea;
       overflow: hidden;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-size: 13px;
     }
     body {
       display: flex;
+      flex-direction: column;
+    }
+    #bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding: 8px 14px;
+      background: #12121a;
+      border-bottom: 1px solid #2c2c36;
+      position: relative;
+      z-index: 2;
+    }
+    #bar strong { color: #3FB950; letter-spacing: 0.04em; }
+    #bar label { display: inline-flex; align-items: center; gap: 6px; color: #9a9aa5; }
+    select, input[type=number] {
+      background: #1a1a21;
+      color: #e6e6ea;
+      border: 1px solid #2c2c36;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font: inherit;
+    }
+    input[type=number] { width: 92px; }
+    select:focus, input:focus { outline: none; border-color: #3FB950; }
+    button {
+      background: #3FB950;
+      color: #0B0F14;
+      border: 0;
+      border-radius: 4px;
+      padding: 5px 14px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover { filter: brightness(1.08); }
+    .field { display: none; }
+    .field.on { display: inline-flex; align-items: center; gap: 6px; color: #9a9aa5; }
+    #hint { color: #6b6b76; margin-left: auto; }
+    #stage {
+      flex: 1;
+      display: flex;
       align-items: center;
       justify-content: center;
+      min-height: 0;
+      overflow: hidden;
     }
     /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
     canvas.emscripten {
@@ -27,7 +74,39 @@
   </style>
 </head>
 <body>
-  <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1"></canvas>
+  <div id="bar">
+    <strong>fract-ol</strong>
+    <label for="fractal">Fractal</label>
+    <select id="fractal">
+      <option value="mandelbrot">Mandelbrot</option>
+      <option value="julia">Julia</option>
+      <option value="burning_ship">Burning Ship</option>
+      <option value="mandelbrot3d">Mandelbrot 3D</option>
+      <option value="julia3d">Julia 3D</option>
+    </select>
+    <span class="field" id="field-julia">
+      c =
+      <input id="julia-re" type="number" step="any" value="-0.7">
+      +
+      <input id="julia-im" type="number" step="any" value="0.27015">
+      i
+    </span>
+    <span class="field" id="field-mandelbrot3d">
+      power
+      <input id="mandelbrot3d-power" type="number" step="any" value="2">
+    </span>
+    <span class="field" id="field-julia3d">
+      c =
+      <input id="julia3d-x" type="number" step="any" value="-0.7">
+      <input id="julia3d-y" type="number" step="any" value="0.27015">
+      <input id="julia3d-z" type="number" step="any" value="0">
+    </span>
+    <button id="load" type="button">Load</button>
+    <span id="hint">click canvas for keyboard focus &middot; 1-5 switch fractal &middot; wheel to zoom</span>
+  </div>
+  <div id="stage">
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1"></canvas>
+  </div>
   <script type="text/javascript">
     var canvasElement = document.getElementById('canvas');
     canvasElement.addEventListener('webglcontextlost', function (e) {
@@ -39,6 +118,73 @@
       printErr: function () { console.error.apply(console, arguments); },
       canvas: canvasElement
     };
+
+    (function () {
+      var FRACTALS = ['mandelbrot', 'julia', 'burning_ship', 'mandelbrot3d', 'julia3d'];
+      var select = document.getElementById('fractal');
+      var fields = {
+        julia: document.getElementById('field-julia'),
+        mandelbrot3d: document.getElementById('field-mandelbrot3d'),
+        julia3d: document.getElementById('field-julia3d')
+      };
+      var inputs = {
+        juliaRe: document.getElementById('julia-re'),
+        juliaIm: document.getElementById('julia-im'),
+        power: document.getElementById('mandelbrot3d-power'),
+        julia3dX: document.getElementById('julia3d-x'),
+        julia3dY: document.getElementById('julia3d-y'),
+        julia3dZ: document.getElementById('julia3d-z')
+      };
+
+      function showFields() {
+        Object.keys(fields).forEach(function (key) {
+          fields[key].className = 'field' + (key === select.value ? ' on' : '');
+        });
+      }
+
+      function number(value, fallback) {
+        var n = parseFloat(value);
+        return isNaN(n) ? fallback : n;
+      }
+
+      function buildArgs() {
+        if (select.value === 'julia') {
+          return ['julia', number(inputs.juliaRe.value, -0.7), number(inputs.juliaIm.value, 0.27015)];
+        }
+        if (select.value === 'mandelbrot3d') {
+          return ['mandelbrot3d', number(inputs.power.value, 2)];
+        }
+        if (select.value === 'julia3d') {
+          return ['julia3d', number(inputs.julia3dX.value, -0.7), number(inputs.julia3dY.value, 0.27015), number(inputs.julia3dZ.value, 0)];
+        }
+        return [select.value];
+      }
+
+      function loadFromQuery() {
+        var args = new URLSearchParams(window.location.search).get('args');
+        var parts = args ? args.split(',') : ['mandelbrot'];
+        select.value = FRACTALS.indexOf(parts[0]) >= 0 ? parts[0] : 'mandelbrot';
+        inputs.juliaRe.value = number(parts[1], -0.7);
+        inputs.juliaIm.value = number(parts[2], 0.27015);
+        inputs.power.value = number(parts[1], 2);
+        inputs.julia3dX.value = number(parts[1], -0.7);
+        inputs.julia3dY.value = number(parts[2], 0.27015);
+        inputs.julia3dZ.value = number(parts[3], 0);
+        showFields();
+      }
+
+      document.getElementById('load').addEventListener('click', function () {
+        window.location.search = '?args=' + encodeURIComponent(buildArgs().join(','));
+      });
+      select.addEventListener('change', showFields);
+      document.getElementById('bar').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          document.getElementById('load').click();
+        }
+      });
+      loadFromQuery();
+    })();
   </script>
   {{{ SCRIPT }}}
 </body>
