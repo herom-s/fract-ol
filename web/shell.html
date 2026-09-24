@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fract-ol</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+    canvas.emscripten {
+      border: 0 none;
+      background: #000;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1"></canvas>
+  <script type="text/javascript">
+    var canvasElement = document.getElementById('canvas');
+    canvasElement.addEventListener('webglcontextlost', function (e) {
+      e.preventDefault();
+    }, false);
+
+    var Module = {
+      print: function () { console.log.apply(console, arguments); },
+      printErr: function () { console.error.apply(console, arguments); },
+      canvas: canvasElement
+    };
+  </script>
+  {{{ SCRIPT }}}
+</body>
+</html>

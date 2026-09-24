@@ -86,7 +86,7 @@ OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 RM = rm -f
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re web web-bonus webclean
 
 all: $(LIBFT) $(SLX) $(NAME)
 
@@ -112,6 +112,43 @@ bonus: $(LIBFT) $(SLX) .bonus
 	$(CC) $(CFLAGS) $(OBJS_BONUS) $(LIBFT) $(SLX_LIB) $(DEPS) -o $(NAME)
 	@touch .bonus
 
+# --- SampaLX WebGL / Emscripten build ---
+
+WEB_NAME := fractol.html
+WEB ?= emcc
+
+SLX_WEB := $(SLX_DIR)libmlx_web.a
+
+WEB_SHELL := web/shell.html
+WEB_PREJS := web/pre.js
+
+WEB_CFLAGS := -I$(SLX_INC) -I$(LIBFT_INC) -O2 -Wall -Wextra
+WEB_LDFLAGS := -sUSE_GLFW=3 -sMIN_WEBGL_VERSION=2 -sMAX_WEBGL_VERSION=2 \
+	-sALLOW_MEMORY_GROWTH=1
+
+LIBFT_SRCS := $(wildcard $(LIBFT_DIR)src/*.c)
+LIBFT_WEB_OBJS := $(LIBFT_SRCS:.c=.web.o)
+
+$(SLX_WEB):
+	$(MAKE) -C $(SLX_DIR) web
+
+$(LIBFT_WEB_OBJS): %.web.o: %.c
+	$(WEB) $(WEB_CFLAGS) -c $< -o $@
+
+web: $(SLX_WEB) $(LIBFT_WEB_OBJS) $(WEB_SHELL) $(WEB_PREJS)
+	$(WEB) $(WEB_CFLAGS) --shell-file $(WEB_SHELL) --pre-js $(WEB_PREJS) \
+		$(SRCS) $(LIBFT_WEB_OBJS) $(SLX_WEB) $(WEB_LDFLAGS) -o $(WEB_NAME)
+
+web-bonus: $(SLX_WEB) $(LIBFT_WEB_OBJS) $(WEB_SHELL) $(WEB_PREJS)
+	$(WEB) $(WEB_CFLAGS) --shell-file $(WEB_SHELL) --pre-js $(WEB_PREJS) \
+		$(SRCS_BONUS) $(LIBFT_WEB_OBJS) $(SLX_WEB) $(WEB_LDFLAGS) \
+		-o $(WEB_NAME)
+
+webclean:
+	$(MAKE) -C $(SLX_DIR) webclean
+	$(RM) $(LIBFT_WEB_OBJS)
+	$(RM) $(WEB_NAME) $(WEB_NAME:.html=.js) $(WEB_NAME:.html=.wasm)
+
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(SLX_DIR) clean
@@ -122,5 +159,8 @@ fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
 	$(RM) $(NAME)
 	$(RM) .bonus
+	$(RM) $(WEB_NAME) $(WEB_NAME:.html=.js) $(WEB_NAME:.html=.wasm)
+	$(MAKE) -C $(SLX_DIR) webclean
+	$(RM) $(LIBFT_WEB_OBJS)
 
 re: fclean all

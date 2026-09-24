@@ -7,4 +7,5 @@
 	url = https://github.com/42paris/minilibx-linux.git
 [submodule "SampaLX"]
 	path = SampaLX
-	url = git@github.com:FelBenini/SampaLX.git
+	url = git@github.com:herom-s/SampaLX.git
+	branch = feat/webgl-support

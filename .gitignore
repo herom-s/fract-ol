@@ -55,3 +55,8 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Web / Emscripten build outputs
+fractol.html
+fractol.js
+fractol.wasm
